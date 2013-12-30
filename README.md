@@ -1,7 +1,7 @@
-GraGo
+grago
 ---
 
-`GraGo` is a library writen in Go, implementing various graph algorithms.
+Implementing various graph algorithms, `grago` is a library writen in Go.
 
 Installation
 ===
