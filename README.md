@@ -23,7 +23,7 @@ To create a graph, simply use the `NewGraph` function which accepts as arguments
 3 boolean variables indicating whether the graph will be oriented, weighed and
 if it is weighed, whether or not there can be negative edges. The following code
 will create a graph that isn't oriented and is weighed with positive values only:
-```graph := NewGraph(false, true, false)```
+```graph := grago.NewGraph(false, true, false)```
 
 ##### Adding nodes and edges to it
 
@@ -47,7 +47,7 @@ each of the functions. Below are several examples:
 To see the results of the BFS algorithm, you specify a starting node and the function will
 return a 2D slice with node names, representing the levels of the BFS traverse.
 ```
-graph := NewGraph(false, true, false)
+graph := grago.NewGraph(false, true, false)
 graph.AddLink("2", "3", 2)
 graph.AddLink("2", "4", 5)
 graph.AddLink("3", "5", 8)
@@ -65,7 +65,7 @@ To see the results of the DFS algorithm, you specify a starting node and the fun
 return a slice of **Link**s, representing the edges and nodes in the order they are traversed.
 The string representation of a **Link** is ```start-(weight)->end```.
 ```
-graph := NewGraph(false, true, false)
+graph := grago.NewGraph(false, true, false)
 graph.AddLink("2", "3", 2)
 graph.AddLink("2", "4", 5)
 graph.AddLink("3", "5", 8)
@@ -82,7 +82,7 @@ fmt.Println(graph.DFS("2"))
 You can find the minimum distance between a node and other nodes via the `MinPaths` function
 which returns a `map` with keys being node names and value the minimum distance to them.
 ```
-graph := NewGraph(false, true, false)
+graph := grago.NewGraph(false, true, false)
 graph.AddLink("2", "3", 2)
 graph.AddLink("2", "4", 5)
 graph.AddLink("3", "5", 8)
@@ -100,7 +100,7 @@ fmt.Println(graph.MinPaths("3")["4"])
 
 Some graph properties can be checked in the package like whether the graph is planar.
 ```
-graph := NewGraph(false, true, false)
+graph := grago.NewGraph(false, true, false)
 graph.AddNode("alpha")
 graph.AddLink("2", "3", 2)
 graph.AddLink("2", "4", 5)
@@ -137,7 +137,7 @@ if you pass an empty slice, the function will return the plain graph.
 * Plain graph
 
 ```
-graph := NewGraph(false, true, false)
+graph := grago.NewGraph(false, true, false)
 graph.AddNode("alpha")
 graph.AddLink("2", "3", 2)
 graph.AddLink("2", "4", 5)
@@ -157,7 +157,7 @@ If you pass the output to **Graphviz** this will be the resulting image:
 * Highlighted DFS path from 2 in the graph
 
 ```
-graph := NewGraph(false, true, false)
+graph := grago.NewGraph(false, true, false)
 graph.AddNode("alpha")
 graph.AddLink("2", "3", 2)
 graph.AddLink("2", "4", 5)
