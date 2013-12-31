@@ -1,6 +1,9 @@
 package grago
 
-import "testing"
+import (
+	"testing"
+	"fmt"
+)
 
 func createGraph() Graph {
 	graph := NewGraph(false, true, false)
@@ -19,26 +22,20 @@ func createGraph2() Graph {
 	return graph
 }
 
-func TestCycle(t *testing.T) {
-	if createGraph().HasCycle() == false {
-		t.Fail()
-	}
+func ExampleHasCycle_Graph() {
+	fmt.Println(createGraph().HasCycle())
+	fmt.Println(createGraph2().HasCycle())
+	
+	// Output:
+	// true
+	// false
 }
 
-func TestNoCycle(t *testing.T) {
-	if createGraph2().HasCycle() == true {
-		t.Fail()
-	}
-}
-
-func TestPlanar(t *testing.T) {
-	if createGraph().IsPlanar() == false {
-		t.Fail()
-	}
-}
-
-func TestNonPlanar(t *testing.T) {
+func ExampleIsPlanar_Graph() {
 	graph := createGraph()
+	
+	fmt.Println(graph.IsPlanar())
+	
 	graph.AddLink("2", "5", 20)
 	graph.AddLink("3", "4", 15)
 	graph.AddLink("2", "alpha", 1)
@@ -46,19 +43,18 @@ func TestNonPlanar(t *testing.T) {
 	graph.AddLink("4", "alpha", 1)
 	graph.AddLink("5", "alpha", 1)
 	
-	if graph.IsPlanar() == true {
-		t.Fail()
-	}
+	fmt.Println(graph.IsPlanar())
+
+	// Output:
+	// true
+	// false
 }
 
-func TestBipartite(t *testing.T) {
-	if createGraph2().IsBipartite() == false {
-		t.Fail()
-	}
-}
-
-func TestNonBipartite(t *testing.T) {
-	if createGraph().IsBipartite() == true {
-		t.Fail()
-	}
+func ExampleIsBipartite_Graph() {
+	fmt.Println(createGraph2().IsBipartite())
+	fmt.Println(createGraph().IsBipartite())
+	
+	// Output:
+	// true
+	// false
 }

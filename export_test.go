@@ -1,6 +1,9 @@
 package grago
 
-import "testing"
+import (
+	"testing"
+	"fmt"
+)
 
 func createGraph() Graph {
 	graph := NewGraph(false, true, false)
@@ -12,22 +15,13 @@ func createGraph() Graph {
 	return graph
 }
 
-func TestExport(t *testing.T) {
-	exported := `graph { "alpha" "2"--"3" [label="2"]; "2"--"4" [label="5"]; "3"--"5" [label="8"]; "5"--"4" [label="10"];}`
-	
+func ExampleExport_Graph() {
 	graph := createGraph()
 	
-	if exported != graph.ExportGraph([]Link{}) {
-		t.Fail()
-	}
-}
-
-func TestExportHighlights(t *testing.T) {
-	exported := `graph { "alpha" "2"--"3" [label="2 (1)" fontcolor=red color=red]; "2"--"4" [label="5"]; "3"--"5" [label="8 (2)" fontcolor=red color=red]; "5"--"4" [label="10 (3)" fontcolor=red color=red];}`
+	fmt.Println(graph.Export([]Link{}))
+	fmt.Println(graph.Export(graph.DFS("2")))
 	
-	graph := createGraph()
-	
-	if exported != graph.ExportGraph(graph.DFS("2")) {
-		t.Fail()
-	}
+	// Output:
+	// graph { "alpha" "2"--"3" [label="2"]; "2"--"4" [label="5"]; "3"--"5" [label="8"]; "5"--"4" [label="10"];}
+	// graph { "alpha" "2"--"3" [label="2 (1)" fontcolor=red color=red]; "2"--"4" [label="5"]; "3"--"5" [label="8 (2)" fontcolor=red color=red]; "5"--"4" [label="10 (3)" fontcolor=red color=red];}
 }

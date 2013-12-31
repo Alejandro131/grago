@@ -1,6 +1,9 @@
 package grago
 
-import "testing"
+import (
+	"testing"
+	"fmt"
+)
 
 func createGraph() Graph {
 	graph := NewGraph(false, true, false)
@@ -11,22 +14,9 @@ func createGraph() Graph {
 	return graph
 }
 
-func TestMST(t *testing.T) {
-	treeLinks := createGraph().MST()
+func ExampleMST_Graph() {
+	fmt.Println(createGraph().MST())
 	
-	if len(treeLinks) != 3 {
-		t.Fail()
-	}
-	
-	if treeLinks[0].Weight != 2 {
-		t.Fail()
-	}
-	
-	if treeLinks[1].Weight != 5 {
-		t.Fail()
-	}
-	
-	if treeLinks[2].Weight != 8 {
-		t.Fail()
-	}
+	// Output:
+	// [2-(2)->3 4-(5)->2 3-(8)->5]
 }

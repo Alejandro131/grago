@@ -1,6 +1,9 @@
 package grago
 
-import "testing"
+import (
+	"testing"
+	"fmt"
+)
 
 func createGraph() Graph {
 	graph := NewGraph(false, true, false)
@@ -12,28 +15,20 @@ func createGraph() Graph {
 	return graph
 }
 
-func TestReachableNodes(t *testing.T) {
-	reachable := createGraph().ReachableNodes("2")
+func ExampleReachableNodes_Graph() {
+	graph := createGraph()
 	
-	if len(reachable) != 3 {
-		t.Fail()
-	}
+	fmt.Println(graph.ReachableNodes("2"))
+	fmt.Println(graph.ReachableNodes("alpha"))
 	
-	for _, node := range reachable {
-		if node == "alpha" {
-			t.Fail()
-		}
-	}
+	// Output:
+	// [3 4 5]
+	// []
 }
 
-func TestUnreachableNodes(t *testing.T) {
-	if len(createGraph().ReachableNodes("alpha")) != 0 {
-		t.Fail()
-	}
-}
-
-func TestConnectedComponents(t *testing.T) {
-	if len(createGraph().ConnectedComponents()) != 2 {
-		t.Fail()
-	}
+func ExampleConnectedComponents_Graph() {
+	fmt.Println(createGraph().ConnectedComponents())
+	
+	// Output:
+	// [[alpha] [2 3 4 5]]
 }

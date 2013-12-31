@@ -6,5 +6,5 @@ package grago
 // highlights is a slice of links representing edges
 // of the graph you would like to outline, for example
 // the results of a DFS search and they will be colored red
-func (g Graph) ExportGraph(highlights []Link) string {
+func (g Graph) Export(highlights []Link) string {
 }

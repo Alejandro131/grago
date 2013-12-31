@@ -1,6 +1,9 @@
 package grago
 
-import "testing"
+import (
+	"testing"
+	"fmt"
+)
 
 func createGraph() Graph {
 	graph := NewGraph(false, true, false)
@@ -20,37 +23,25 @@ func createGraph2() Graph {
 	return graph
 }
 
-func TestEulerPath(t *testing.T) {
-	path := createGraph().EulerPath()
+func ExampleEulerPath_Graph() {
+	fmt.Println(createGraph().EulerPath())
+	fmt.Println(createGraph2().EulerPath())
 	
-	if len(path) != 4 {
-		t.Fail()
-	}
-	
-	for _, link := range path {
-		if link.Start == "alpha" || link.End == "alpha" {
-			t.Fail()
-		}
-	}
+	// Output:
+	// [2-(2)->3 3-(8)->5 5-(10)->4 4-(5)->2]
+	// []
 }
 
-func TestNoEulerPath(t *testing.T) {
-	if len(createGraph2().EulerPath()) != 0 {
-		t.Fail()
-	}
-}
-
-func TestHamiltonPath(t *testing.T) {
+func ExampleHamiltonPath_Graph() {
 	graph := createGraph()
+	
+	fmt.Println(graph.HamiltonPath())
+	
 	graph.RemoveNode("alpha")
 	
-	if len(graph.HamiltonPath()) != 4 {
-		t.Fail()
-	}
-}
-
-func TestNoHamiltonPath(t *testing.T) {
-	if len(createGraph().HamiltonPath()) != 0 {
-		t.Fail()
-	}
+	fmt.Println(graph.HamiltonPath())
+	
+	// Output:
+	// []
+	// [2-(2)->3 3-(8)->5 5-(10)->4 4-(5)->2]
 }

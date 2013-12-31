@@ -1,6 +1,9 @@
 package grago
 
-import "testing"
+import (
+	"testing"
+	"fmt"
+)
 
 func createGraph() Graph {
 	graph := NewGraph(false, true, false)
@@ -12,38 +15,16 @@ func createGraph() Graph {
 	return graph
 }
 
-func TestBFS(t *testing.T) {
-	layers := createGraph().BFS("2")
+func ExampleBFS_Graph() {	
+	fmt.Println(createGraph().BFS("2"))
 	
-	if len(layers) != 3 {
-		t.Fail()
-	}
-	
-	if layers[0][0] != "2" {
-		t.Fail()
-	}
-	
-	if layers[2][0] != "5" {
-		t.Fail()
-	}
+	// Output:
+	// [[2] [3 4] [5]]
 }
 
-func TestDFS(t *testing.T) {
-	links := createGraph().DFS("2")
+func ExampleDFS_Graph() {
+	fmt.Println(createGraph().DFS("2"))
 	
-	if len(links) != 3 {
-		t.Fail()
-	}
-	
-	if links[0].Weight != 2 {
-		t.Fail()
-	}
-	
-	if links[1].Weight != 8 {
-		t.Fail()
-	}
-	
-	if links[2].Weight != 10 {
-		t.Fail()
-	}
+	// Output:
+	// [2-(2)->3 3-(8)->5 5-(10)->4]
 }

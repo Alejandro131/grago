@@ -1,6 +1,9 @@
 package grago
 
-import "testing"
+import (
+	"testing"
+	"fmt"
+)
 
 func createGraph() Graph {
 	graph := NewGraph(false, true, false)
@@ -22,46 +25,35 @@ func createGraphNegative() Graph {
 	return graph
 }
 
-func TestFloyd(t *testing.T) {
+func ExampleFloyd_Graph() {
 	paths := createGraph().Floyd()
 	
-	if paths["2"]["5"] != 10 {
-		t.Fail()
-	}
+	fmt.Println(paths["2"]["5"])
+	fmt.Println(paths["3"]["4"])
 	
-	if paths["3"]["4"] != 7 {
-		t.Fail()
-	}
+	// Output:
+	// 10
+	// 7
 }
 
-func TestDijkstra(t *testing.T) {
-	paths := createGraph().MinPaths("2")
+func ExampleMinPaths_Graph_dijkstra() {
+	graph := createGraph()
 	
-	if paths["5"] != 10 {
-		t.Fail()
-	}
+	fmt.Println(graph.MinPaths("2")["5"])
+	fmt.Println(graph.MinPaths("3")["4"])
+	
+	// Output:
+	// 10
+	// 7
 }
 
-func TestDijkstra2(t *testing.T) {
-	paths := createGraph().MinPaths("3")
+func ExampleMinPaths_Graph_fordBellman() {
+	graph := createGraphNegative()
 	
-	if paths["4"] != 7 {
-		t.Fail()
-	}
-}
-
-func TestFordBellman(t *testing.T) {
-	paths := createGraphNegative().MinPaths("2")
+	fmt.Println(graph.MinPaths("2")["5"])
+	fmt.Println(graph.MinPaths("3")["4"])
 	
-	if paths["5"] != 5 {
-		t.Fail()
-	}
-}
-
-func TestFordBellman2(t *testing.T) {
-	paths := createGraphNegative().MinPaths("3")
-	
-	if paths["4"] != -3 {
-		t.Fail()
-	}
+	// Output:
+	// 5
+	// -3
 }

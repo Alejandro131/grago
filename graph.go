@@ -1,5 +1,7 @@
 package grago
 
+import "strconv"
+
 type Link struct {
 	// The name of the start node
 	Start string
@@ -10,7 +12,12 @@ type Link struct {
 	Weight int
 }
 
-func NewLink(start string, end string, weight int) {
+func NewLink(start string, end string, weight int) Link {
+}
+
+// A string representation of Link used for output.
+func (l Link) String() string {
+	return l.Start + "-(" + strconv.Itoa(l.Weight) + ")->" + l.End
 }
 
 type Node struct {
@@ -61,6 +68,8 @@ func (g *Graph) AddNode(node string) bool {
 // already exists.
 // Note: There can be many links between two nodes,
 // but all of them have to have unique weights.
+// If the graph isn't weighed there can be only one link
+// and no matter what the weight is, a value of 1 is used.
 // If the graph isn't oriented adding a ling from A to B
 // effectively adds a link from B to A.
 func (g *Graph) AddLink(startNode string, endNode string, weight int) bool {
