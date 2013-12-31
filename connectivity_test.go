@@ -27,17 +27,13 @@ func TestReachableNodes(t *testing.T) {
 }
 
 func TestUnreachableNodes(t *testing.T) {
-	reachable := createGraph().ReachableNodes("alpha")
-	
-	if len(reachable) != 0 {
+	if len(createGraph().ReachableNodes("alpha")) != 0 {
 		t.Fail()
 	}
 }
 
 func TestConnectedComponents(t *testing.T) {
-	components := createGraph().ConnectedComponents()
-	
-	if len(components) != 2 {
+	if len(createGraph().ConnectedComponents()) != 2 {
 		t.Fail()
 	}
 }

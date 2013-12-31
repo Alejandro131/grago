@@ -1,19 +1,17 @@
-grago
----
+# grago
 
 Implementing various graph algorithms, `grago` is a library writen in Go.
 
-Installation
-===
+### Installation
 
 ??
 
-Examples
-===
+### Examples
 
 ??
+![](graph.png)
+![](graphHighlights.png)
 
-License
-===
+### License
 
 The library is licensed under the [MIT License](LICENSE).
