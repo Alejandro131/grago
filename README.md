@@ -23,7 +23,7 @@ To create a graph, simply use the `NewGraph` function which accepts as arguments
 3 boolean variables indicating whether the graph will be oriented, weighed and
 if it is weighed, whether or not there can be negative edges. The following code
 will create a graph that isn't oriented and is weighed with positive values only:
-`graph := NewGraph(false, true, false)`
+```graph := NewGraph(false, true, false)```
 
 ##### Adding nodes and edges to it
 
@@ -63,7 +63,7 @@ fmt.Println(graph.BFS("2"))
 
 To see the results of the DFS algorithm, you specify a starting node and the function will
 return a slice of **Link**s, representing the edges and nodes in the order they are traversed.
-The string representation of a **Link** shows is `start-(weight)->end`.
+The string representation of a **Link** is ```start-(weight)->end```.
 ```
 graph := NewGraph(false, true, false)
 graph.AddLink("2", "3", 2)
