@@ -62,8 +62,8 @@ fmt.Println(graph.BFS("2"))
 * Depth First Search
 
 To see the results of the DFS algorithm, you specify a starting node and the function will
-return a slice of `Link`s, representing the edges and nodes in the order they are traversed.
-The string representation of a `Link` shows is `start-(weight)->end`.
+return a slice of **Link**s, representing the edges and nodes in the order they are traversed.
+The string representation of a **Link** shows is `start-(weight)->end`.
 ```
 graph := NewGraph(false, true, false)
 graph.AddLink("2", "3", 2)
@@ -130,8 +130,8 @@ For other available algorithms, look in the files of the package.
 ##### Exporting the graph to view in [Graphviz](http://www.graphviz.org/)
 
 If you want to view the graph you have constructed visually, there is a function
-which exports it to the `dot` language format supported by `Graphviz`. `Export` receives
-as an argument a slice of `Link`s which you would like to be highlighted in the graph or
+which exports it to the `dot` language format supported by **Graphviz**. `Export` receives
+as an argument a slice of **Link**s which you would like to be highlighted in the graph or
 if you pass an empty slice, the function will return the plain graph.
 
 * Plain graph
@@ -150,7 +150,7 @@ fmt.Println(graph.Export([]Link{}))
 // graph { "alpha" "2"--"3" [label="2"]; "2"--"4" [label="5"]; "3"--"5" [label="8"]; "5"--"4" [label="10"];}
 ```
 
-If you pass the output to `Graphviz` this will be the resulting image:
+If you pass the output to **Graphviz** this will be the resulting image:
 
 ![](graph.png)
 
@@ -170,7 +170,7 @@ fmt.Println(graph.Export(graph.DFS("2")))
 // graph { "alpha" "2"--"3" [label="2 (1)" fontcolor=red color=red]; "2"--"4" [label="5"]; "3"--"5" [label="8 (2)" fontcolor=red color=red]; "5"--"4" [label="10 (3)" fontcolor=red color=red];}
 ```
 
-If you pass the output to `Graphviz` this will be the resulting image:
+If you pass the output to **Graphviz** this will be the resulting image:
 
 ![](graphHighlights.png)
 
