@@ -42,7 +42,7 @@ There are popular algorithms in graph theory problems which you can use on the g
 structure. Depending on the algorithm, you can expect differently formated output from
 each of the functions. Below are several examples:
 
-* Breadth First Search
+###### Breadth First Search
 
 To see the results of the BFS algorithm, you specify a starting node and the function will
 return a 2D slice with node names, representing the levels of the BFS traverse.
@@ -59,7 +59,7 @@ fmt.Println(graph.BFS("2"))
 // [[2] [3 4] [5]]
 ```
 
-* Depth First Search
+###### Depth First Search
 
 To see the results of the DFS algorithm, you specify a starting node and the function will
 return a slice of **Link**s, representing the edges and nodes in the order they are traversed.
@@ -77,7 +77,7 @@ fmt.Println(graph.DFS("2"))
 // [2-(2)->3 3-(8)->5 5-(10)->4]
 ```
 
-* Minimum distance between nodes
+###### Minimum distance between nodes
 
 You can find the minimum distance between a node and other nodes via the `MinPaths` function
 which returns a `map` with keys being node names and value the minimum distance to them.
@@ -96,7 +96,7 @@ fmt.Println(graph.MinPaths("3")["4"])
 // 7
 ```
 
-* Graph properties
+###### Graph properties
 
 Some graph properties can be checked in the package like whether the graph is planar.
 ```
@@ -123,7 +123,7 @@ fmt.Println(graph.IsPlanar())
 // false
 ```
 
-* Other algorithms
+###### Other algorithms
 
 For other available algorithms, look in the files of the package.
 
@@ -134,7 +134,7 @@ which exports it to the `dot` language format supported by **Graphviz**. `Export
 as an argument a slice of **Link**s which you would like to be highlighted in the graph or
 if you pass an empty slice, the function will return the plain graph.
 
-* Plain graph
+###### Plain graph
 
 ```
 graph := grago.NewGraph(false, true, false)
@@ -154,7 +154,7 @@ If you pass the output to **Graphviz** this will be the resulting image:
 
 ![](graph.png)
 
-* Highlighted DFS path from 2 in the graph
+###### Highlighted DFS path from 2 in the graph
 
 ```
 graph := grago.NewGraph(false, true, false)
