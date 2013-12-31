@@ -154,7 +154,7 @@ If you pass the output to **Graphviz** this will be the resulting image:
 
 ![](graph.png)
 
-###### Highlighted DFS path from 2 in the graph
+###### Highlighted DFS path from node `2` in the graph
 
 ```
 graph := grago.NewGraph(false, true, false)
