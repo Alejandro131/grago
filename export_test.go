@@ -18,8 +18,8 @@ func createGraph() Graph {
 func ExampleExport_Graph() {
 	graph := createGraph()
 	
-	fmt.Println(graph.Export([]Link{}))
-	fmt.Println(graph.Export(graph.DFS("2")))
+	fmt.Println(graph.Export([]Link{}, true, [][]string{}))
+	fmt.Println(graph.Export(graph.DFS("2"), true, [][]string{}))
 	
 	// Output:
 	// graph { "alpha" "2"--"3" [label="2"]; "2"--"4" [label="5"]; "3"--"5" [label="8"]; "5"--"4" [label="10"];}
