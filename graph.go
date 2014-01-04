@@ -9,15 +9,21 @@ type Link struct {
 	// The name of the end node
 	End string
 	
+	Weighed bool
+	
 	Weight int
 }
 
-func NewLink(start string, end string, weight int) Link {
+func NewLink(start string, end string, weighed bool, weight int) Link {
 }
 
 // A string representation of Link used for output.
 func (l Link) String() string {
-	return l.Start + "-(" + strconv.Itoa(l.Weight) + ")->" + l.End
+	if l.Weighed {
+		return l.Start + "-(" + strconv.Itoa(l.Weight) + ")->" + l.End
+	} else {
+		return l.Start + "--" + l.End
+	}
 }
 
 type Node struct {

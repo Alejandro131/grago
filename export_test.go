@@ -18,7 +18,7 @@ func createGraph() Graph {
 func ExampleExport_Graph() {
 	graph := createGraph()
 	
-	fmt.Println(graph.Export([]Link{}, true, [][]string{}))
+	fmt.Println(graph.Export([]Link{}, false, [][]string{}))
 	fmt.Println(graph.Export(graph.DFS("2"), true, [][]string{}))
 	
 	// Output:

@@ -17,10 +17,12 @@ func createGraph() Graph {
 }
 
 func ExampleString_Link() {
-	fmt.Println(NewLink("1", "4", 23))
+	fmt.Println(NewLink("1", "4", true, 23))
+	fmt.Println(NewLink("1", "4", false, 321321))
 	
 	// Output:
 	// 1-(23)->4
+	// 1--4
 }
 
 func ExampleAdjacentNodes_Node() {

@@ -132,7 +132,10 @@ For other available algorithms, look in the files of the package.
 If you want to view the graph you have constructed visually, there is a function
 which exports it to the `dot` language format supported by **Graphviz**. `Export` receives
 as an argument a slice of **Link**s which you would like to be highlighted in the graph or
-if you pass an empty slice, the function will return the plain graph.
+if you pass an empty slice, the function will return the plain graph. You also pass whether
+or not you want the **Link**s to have an index attached to them so that you know the order
+of traverse. Another option is to group the nodes in clusters which can be passed as a slice
+of string slices.
 
 ###### Plain graph
 
@@ -144,7 +147,7 @@ graph.AddLink("2", "4", 5)
 graph.AddLink("3", "5", 8)
 graph.AddLink("5", "4", 10)
 
-fmt.Println(graph.Export([]Link{}))
+fmt.Println(graph.Export([]Link{}, false, [][]string{}))
 
 // Output:
 // graph { "alpha" "2"--"3" [label="2"]; "2"--"4" [label="5"]; "3"--"5" [label="8"]; "5"--"4" [label="10"];}
@@ -164,7 +167,7 @@ graph.AddLink("2", "4", 5)
 graph.AddLink("3", "5", 8)
 graph.AddLink("5", "4", 10)
 
-fmt.Println(graph.Export(graph.DFS("2")))
+fmt.Println(graph.Export(graph.DFS("2"), true, [][]string{}))
 
 // Output:
 // graph { "alpha" "2"--"3" [label="2 (1)" fontcolor=red color=red]; "2"--"4" [label="5"]; "3"--"5" [label="8 (2)" fontcolor=red color=red]; "5"--"4" [label="10 (3)" fontcolor=red color=red];}
