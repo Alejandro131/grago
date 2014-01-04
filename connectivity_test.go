@@ -1,8 +1,8 @@
 package grago
 
 import (
-	"testing"
 	"fmt"
+	"testing"
 )
 
 func createGraph() Graph {
@@ -17,10 +17,10 @@ func createGraph() Graph {
 
 func ExampleReachableNodes_Graph() {
 	graph := createGraph()
-	
+
 	fmt.Println(graph.ReachableNodes("2"))
 	fmt.Println(graph.ReachableNodes("alpha"))
-	
+
 	// Output:
 	// [3 4 5]
 	// []
@@ -28,7 +28,7 @@ func ExampleReachableNodes_Graph() {
 
 func ExampleConnectedComponents_Graph() {
 	fmt.Println(createGraph().ConnectedComponents())
-	
+
 	// Output:
 	// [[alpha] [2 3 4 5]]
 }

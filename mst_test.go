@@ -1,8 +1,8 @@
 package grago
 
 import (
-	"testing"
 	"fmt"
+	"testing"
 )
 
 func createGraph() Graph {
@@ -16,7 +16,7 @@ func createGraph() Graph {
 
 func ExampleMST_Graph() {
 	fmt.Println(createGraph().MST())
-	
+
 	// Output:
 	// [2-(2)->3 4-(5)->2 3-(8)->5]
 }

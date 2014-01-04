@@ -1,8 +1,8 @@
 package grago
 
 import (
-	"testing"
 	"fmt"
+	"testing"
 )
 
 func createGraph() Graph {
@@ -15,16 +15,16 @@ func createGraph() Graph {
 	return graph
 }
 
-func ExampleBFS_Graph() {	
+func ExampleBFS_Graph() {
 	fmt.Println(createGraph().BFS("2"))
-	
+
 	// Output:
 	// [[2] [3 4] [5]]
 }
 
 func ExampleDFS_Graph() {
 	fmt.Println(createGraph().DFS("2"))
-	
+
 	// Output:
 	// [2-(2)->3 3-(8)->5 5-(10)->4]
 }

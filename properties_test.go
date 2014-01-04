@@ -1,8 +1,8 @@
 package grago
 
 import (
-	"testing"
 	"fmt"
+	"testing"
 )
 
 func createGraph() Graph {
@@ -25,7 +25,7 @@ func createGraph2() Graph {
 func ExampleHasCycle_Graph() {
 	fmt.Println(createGraph().HasCycle())
 	fmt.Println(createGraph2().HasCycle())
-	
+
 	// Output:
 	// true
 	// false
@@ -33,16 +33,16 @@ func ExampleHasCycle_Graph() {
 
 func ExampleIsPlanar_Graph() {
 	graph := createGraph()
-	
+
 	fmt.Println(graph.IsPlanar())
-	
+
 	graph.AddLink("2", "5", 20)
 	graph.AddLink("3", "4", 15)
 	graph.AddLink("2", "alpha", 1)
 	graph.AddLink("3", "alpha", 1)
 	graph.AddLink("4", "alpha", 1)
 	graph.AddLink("5", "alpha", 1)
-	
+
 	fmt.Println(graph.IsPlanar())
 
 	// Output:
@@ -53,7 +53,7 @@ func ExampleIsPlanar_Graph() {
 func ExampleIsBipartite_Graph() {
 	fmt.Println(createGraph2().IsBipartite())
 	fmt.Println(createGraph().IsBipartite())
-	
+
 	// Output:
 	// true
 	// false

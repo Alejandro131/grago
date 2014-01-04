@@ -1,8 +1,8 @@
 package grago
 
 import (
-	"testing"
 	"fmt"
+	"testing"
 )
 
 func createGraph() Graph {
@@ -26,7 +26,7 @@ func createGraph2() Graph {
 func ExampleEulerPath_Graph() {
 	fmt.Println(createGraph().EulerPath())
 	fmt.Println(createGraph2().EulerPath())
-	
+
 	// Output:
 	// [2-(2)->3 3-(8)->5 5-(10)->4 4-(5)->2]
 	// []
@@ -34,13 +34,13 @@ func ExampleEulerPath_Graph() {
 
 func ExampleHamiltonPath_Graph() {
 	graph := createGraph()
-	
+
 	fmt.Println(graph.HamiltonPath())
-	
+
 	graph.RemoveNode("alpha")
-	
+
 	fmt.Println(graph.HamiltonPath())
-	
+
 	// Output:
 	// []
 	// [2-(2)->3 3-(8)->5 5-(10)->4 4-(5)->2]

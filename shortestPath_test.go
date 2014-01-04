@@ -1,8 +1,8 @@
 package grago
 
 import (
-	"testing"
 	"fmt"
+	"testing"
 )
 
 func createGraph() Graph {
@@ -27,10 +27,10 @@ func createGraphNegative() Graph {
 
 func ExampleFloyd_Graph() {
 	paths := createGraph().Floyd()
-	
+
 	fmt.Println(paths["2"]["5"])
 	fmt.Println(paths["3"]["4"])
-	
+
 	// Output:
 	// 10
 	// 7
@@ -38,10 +38,10 @@ func ExampleFloyd_Graph() {
 
 func ExampleMinPaths_Graph_dijkstra() {
 	graph := createGraph()
-	
+
 	fmt.Println(graph.MinPaths("2")["5"])
 	fmt.Println(graph.MinPaths("3")["4"])
-	
+
 	// Output:
 	// 10
 	// 7
@@ -49,10 +49,10 @@ func ExampleMinPaths_Graph_dijkstra() {
 
 func ExampleMinPaths_Graph_fordBellman() {
 	graph := createGraphNegative()
-	
+
 	fmt.Println(graph.MinPaths("2")["5"])
 	fmt.Println(graph.MinPaths("3")["4"])
-	
+
 	// Output:
 	// 5
 	// -3

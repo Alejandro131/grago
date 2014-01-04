@@ -20,5 +20,3 @@ func (g Graph) dijkstra(node string) map[string]int {
 // Ford Bellman's implementation of the shortest path algorithm.
 func (g Graph) fordBellman(node string) map[string]int {
 }
-
-	

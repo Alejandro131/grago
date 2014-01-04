@@ -1,16 +1,19 @@
 package grago
 
-import "strconv"
+import (
+	"io"
+	"strconv"
+)
 
 type Link struct {
 	// The name of the start node
 	Start string
-	
+
 	// The name of the end node
 	End string
-	
+
 	Weighed bool
-	
+
 	Weight int
 }
 
@@ -41,26 +44,42 @@ func (n Node) AdjacentNodes() []string {
 }
 
 type Graph struct {
-	// Whether the graph is oriented or not takes effect on the 
+	// Whether the graph is oriented or not takes effect on the
 	// visual representation as well as edge addition to it.
 	Oriented bool
-	
+
 	// If the graph is weighed, the weights will be shown on the
 	// exported visualization, otherwise an edge between two nodes
 	// will be represented by a weight of 1
 	Weighed bool
-	
+
 	// Whether or not the graph has negative weights takes effect
 	// on which algorithms to use in some cases like shorted path
 	// finding.
 	HasNegativeWeights bool
-	
+
 	// A container for all the nodes in the graph, accessible by
 	// their given names.
 	nodes map[string]Node
 }
 
 func NewGraph(oriented bool, weighed bool, hasNegativeWeights bool) Graph {
+}
+
+// Creates a graph, read from a string with an expected
+// input format such as:
+// <oriented> <weighed> <hasNegativeWeights> - booleans
+// <node> - for adding a node
+// <node> -- <node> [<weight>] - for adding a link
+func ReadGraph(in string) Graph {
+}
+
+// A string representation of Graph, with an output format
+// like the input format:
+// <oriented> <weighed> <hasNegativeWeights> - booleans
+// <node> - for all the nodes that don't have neighbours
+// <node> -- <node> [<weight>] - for all the links
+func (g Graph) String() string {
 }
 
 // Tries to add a node to the graph and returns true

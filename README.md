@@ -1,6 +1,6 @@
 # About grago
 
-Implementing various graph algorithms, `grago` is a library writen in Go.
+Implementing some graph algorithms, `grago` is a package for Go.
 
 ### Setup
 
