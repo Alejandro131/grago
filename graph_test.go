@@ -3,10 +3,10 @@ package grago
 import (
 	"fmt"
 	"io/ioutil"
-	"testing"
+	//"testing"
 )
 
-func createGraph() Graph {
+func createGraph() *Graph {
 	graph := NewGraph(false, true, false)
 	graph.AddNode("alpha")
 	graph.AddLink("2", "alpha", 2)
@@ -38,33 +38,31 @@ func ExampleAdjacentNodes_Node() {
 }
 
 func ExampleReadGraph_Graph() {
-	data := ioutil.ReadFile("exampleGraph.txt")
+	data, _ := ioutil.ReadFile("exampleGraph.txt")
 	graph := ReadGraph(string(data))
 
 	fmt.Println(graph)
 
 	// Output:
-	// false true false
+	// true true false
 	// alpha
+	// 2
+	// 3
 	// 2 -- 3 2
-	// 2 -- 4 5
-	// 3 -- 5 8
-	// 5 -- 4 10
 }
 
 func ExampleString_Graph() {
-	data := ioutil.ReadFile("exampleGraph.txt")
+	data, _ := ioutil.ReadFile("exampleGraph.txt")
 	graph := ReadGraph(string(data))
 
 	fmt.Println(graph)
 
 	// Output:
-	// false true false
+	// true true false
 	// alpha
+	// 2
+	// 3
 	// 2 -- 3 2
-	// 2 -- 4 5
-	// 3 -- 5 8
-	// 5 -- 4 10
 }
 
 func ExampleAddNode_Graph() {
@@ -84,13 +82,11 @@ func ExampleAddLink_Graph() {
 	graph := NewGraph(false, true, false)
 
 	fmt.Println(graph.AddLink("a", "b", 2))
-	fmt.Println(graph.AddLink("a", "b", 2))
 	fmt.Println(graph.AddLink("a", "b", 5))
 
 	// Output:
 	// true
 	// false
-	// true
 }
 
 func ExampleRemoveNode_Graph() {
@@ -113,24 +109,9 @@ func ExampleRemoveLink_Graph() {
 
 	graph.AddLink("a", "b", 2)
 
-	fmt.Println(graph.RemoveLink("a", "b", 2))
-	fmt.Println(graph.RemoveLink("a", "b", 2))
-	fmt.Println(graph.RemoveLink("a", "c", 2))
-
-	// Output:
-	// true
-	// false
-	// false
-}
-
-func ExampleRemoveLinks_Graph() {
-	graph := NewGraph(false, true, false)
-
-	graph.AddLink("a", "b", 2)
-
-	fmt.Println(graph.RemoveLinks("a", "b"))
-	fmt.Println(graph.RemoveLinks("a", "b"))
-	fmt.Println(graph.RemoveLinks("a", "c"))
+	fmt.Println(graph.RemoveLink("a", "b"))
+	fmt.Println(graph.RemoveLink("a", "b"))
+	fmt.Println(graph.RemoveLink("a", "c"))
 
 	// Output:
 	// true

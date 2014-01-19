@@ -5,7 +5,7 @@ import (
 	"testing"
 )
 
-func createGraph() Graph {
+func createGraph() *Graph {
 	graph := NewGraph(false, true, false)
 	graph.AddLink("2", "3", 2)
 	graph.AddLink("2", "4", 5)

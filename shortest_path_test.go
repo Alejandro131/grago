@@ -5,7 +5,7 @@ import (
 	"testing"
 )
 
-func createGraph() Graph {
+func createGraph() *Graph {
 	graph := NewGraph(false, true, false)
 	graph.AddNode("alpha")
 	graph.AddLink("2", "3", 2)
@@ -15,7 +15,7 @@ func createGraph() Graph {
 	return graph
 }
 
-func createGraphNegative() Graph {
+func createGraphNegative() *Graph {
 	graph := NewGraph(false, true, true)
 	graph.AddNode("alpha")
 	graph.AddLink("2", "3", 2)
