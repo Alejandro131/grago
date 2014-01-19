@@ -86,6 +86,7 @@ func (g *Graph) AddNode(node string) bool {
 // Tries to add a link between two nodes and returns true
 // if successful, otherwise returns false if such a link
 // already exists.
+
 // Note: There can be many links between two nodes,
 // but all of them have to have unique weights.
 // If the graph isn't weighed there can be only one link
@@ -116,6 +117,7 @@ func (g *Graph) RemoveLinks(node1 string, node2 string) bool {
 
 // Returns the count of the links which have as a starting
 // node the one specified as a parameter.
+
 // Note: If the graph isn't oriented the outgoing links
 // will always match the incoming links.
 func (g *Graph) OutgoingLinksCount(node string) int {
@@ -123,6 +125,7 @@ func (g *Graph) OutgoingLinksCount(node string) int {
 
 // Returns the count of the links which have as an ending
 // node the one specified as a parameter.
+
 // Note: If the graph isn't oriented the outgoing links
 // will always match the incoming links.
 func (g *Graph) IncomingLinksCount(node string) int {
