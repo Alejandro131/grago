@@ -12,5 +12,5 @@ package grago
 // 'clusters' is a 2d array of strings representing node names
 // that should be ordered in separate groups visually, if it's
 // empty, the graph will be displayed as is.
-func (g Graph) Export(highlights []Link, ordered bool, clusters [][]string) string {
+func (g *Graph) Export(highlights []Link, ordered bool, clusters [][]string) string {
 }
