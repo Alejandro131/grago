@@ -3,7 +3,6 @@ package grago
 import (
 	"fmt"
 	"io/ioutil"
-	//"testing"
 )
 
 func createGraph() *Graph {

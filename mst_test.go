@@ -20,3 +20,23 @@ func ExampleMST_Graph() {
 	// Output:
 	// [2-(2)->3 4-(5)->2 3-(8)->5]
 }
+
+func TestMST(t *testing.T) {
+	treeLinks := createGraph().MST()
+
+	if len(treeLinks) != 3 {
+		t.Fail()
+	}
+
+	if treeLinks[0].Weight != 2 {
+		t.Fail()
+	}
+
+	if treeLinks[1].Weight != 5 {
+		t.Fail()
+	}
+
+	if treeLinks[2].Weight != 8 {
+		t.Fail()
+	}
+}

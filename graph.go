@@ -25,7 +25,7 @@ func NewLink(start string, end string, weighed bool, weight int) *Link {
 }
 
 // A string representation of Link used for output.
-func (l *Link) String() string {
+func (l Link) String() string {
 	if l.Weighed {
 		return l.Start + "-(" + strconv.Itoa(l.Weight) + ")->" + l.End
 	} else {
@@ -116,14 +116,14 @@ func ReadGraph(in string) *Graph {
 	for _, line := range lines[1:] {
 		linkMatch := linkRegex.FindStringSubmatch(line)
 		
-		if len(linkMatch) != 0 { //this line adds a link
+		if len(linkMatch) != 0 { //this line describes a link
 			if g.Weighed {
 				weight, _ := strconv.Atoi(linkMatch[3])
 				g.AddLink(linkMatch[1], linkMatch[2], weight)
 			} else {
 				g.AddLink(linkMatch[1], linkMatch[2], 1)
 			}
-		} else { //this line add a node
+		} else { //this line describes a node
 			g.AddNode(line)
 		}
 	}

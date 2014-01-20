@@ -5,7 +5,7 @@ import (
 	"testing"
 )
 
-func createGraph() *Graph {
+func createGrapht() *Graph {
 	graph := NewGraph(false, true, false)
 	graph.AddNode("alpha")
 	graph.AddLink("2", "3", 2)
@@ -16,15 +16,67 @@ func createGraph() *Graph {
 }
 
 func ExampleBFS_Graph() {
-	fmt.Println(createGraph().BFS("2"))
+	fmt.Println(createGrapht().BFS("2"))
 
 	// Output:
 	// [[2] [3 4] [5]]
 }
 
 func ExampleDFS_Graph() {
-	fmt.Println(createGraph().DFS("2"))
+	fmt.Println(createGrapht().DFS("2"))
 
 	// Output:
 	// [2-(2)->3 3-(8)->5 5-(10)->4]
+}
+
+func TestBFS(t *testing.T) {
+	layers := createGrapht().BFS("2")
+
+	if len(layers) != 3 {
+		t.Fail()
+	}
+
+	if layers[0][0] != "2" {
+		t.Fail()
+	}
+
+	if layers[2][0] != "5" {
+		t.Fail()
+	}
+}
+
+func TestBFSNoWay(t *testing.T) {
+	layers := createGrapht().BFS("alpha")
+
+	if len(layers) != 1 {
+		t.Fail()
+	}
+}
+
+func TestDFS(t *testing.T) {
+	links := createGrapht().DFS("2")
+
+	if len(links) != 3 {
+		t.Fail()
+	}
+
+	if links[0].Weight != 2 {
+		t.Fail()
+	}
+
+	if links[1].Weight != 8 {
+		t.Fail()
+	}
+
+	if links[2].Weight != 10 {
+		t.Fail()
+	}
+}
+
+func TestDFSNoLinks(t *testing.T) {
+	links := createGrapht().DFS("alpha")
+
+	if len(links) != 0 {
+		t.Fail()
+	}
 }

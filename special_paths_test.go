@@ -45,3 +45,38 @@ func ExampleHamiltonPath_Graph() {
 	// []
 	// [2-(2)->3 3-(8)->5 5-(10)->4 4-(5)->2]
 }
+
+func TestEulerPath(t *testing.T) {
+	path := createGraph().EulerPath()
+
+	if len(path) != 4 {
+		t.Fail()
+	}
+
+	for _, link := range path {
+		if link.Start == "alpha" || link.End == "alpha" {
+			t.Fail()
+		}
+	}
+}
+
+func TestNoEulerPath(t *testing.T) {
+	if len(createGraph2().EulerPath()) != 0 {
+		t.Fail()
+	}
+}
+
+func TestHamiltonPath(t *testing.T) {
+	graph := createGraph()
+	graph.RemoveNode("alpha")
+
+	if len(graph.HamiltonPath()) != 4 {
+		t.Fail()
+	}
+}
+
+func TestNoHamiltonPath(t *testing.T) {
+	if len(createGraph().HamiltonPath()) != 0 {
+		t.Fail()
+	}
+}
