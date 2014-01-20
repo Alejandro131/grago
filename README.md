@@ -180,3 +180,7 @@ If you pass the output to **Graphviz** this will be the resulting image:
 ### License
 
 The library is licensed under the [MIT License](LICENSE).
+
+### Special Thanks
+
+Krzysztof Kowalik - simple implementation of [Priority Queue](http://github.com/nu7hatch/gopqueue)

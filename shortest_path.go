@@ -10,13 +10,28 @@ func (g *Graph) Floyd() map[string]map[string]int {
 // Internally it chooses between Dijkstra's and Ford Bellman's
 // algorithms depending on whether the graph has negative weights
 // or not.
-func (g *Graph) MinPaths(node string) map[string]int {
+func (g *Graph) MinPaths(start string) map[string]int {
+	if g.HasNegativeWeights {
+		return g.fordBellman(start)
+	} else {
+		return g.dijkstra(start)
+	}
 }
 
 // Dijkstra's implementation of the shortest path algorithm.
-func (g *Graph) dijkstra(node string) map[string]int {
+func (g *Graph) dijkstra(start string) map[string]int {
+	result := make(map[string]int)
+	
+	result[start] = 0
+	marked := make(map[string]bool)
+	for _, node := range g.Nodes() {
+		marked[node] = false
+	}
+	marked[start] = true
+	
+	return result
 }
 
 // Ford Bellman's implementation of the shortest path algorithm.
-func (g *Graph) fordBellman(node string) map[string]int {
+func (g *Graph) fordBellman(start string) map[string]int {
 }

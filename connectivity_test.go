@@ -5,7 +5,7 @@ import (
 	"testing"
 )
 
-func createGraph() *Graph {
+func createGraphc() *Graph {
 	graph := NewGraph(false, true, false)
 	graph.AddNode("alpha")
 	graph.AddLink("2", "3", 2)
@@ -16,7 +16,7 @@ func createGraph() *Graph {
 }
 
 func ExampleReachableNodes_Graph() {
-	graph := createGraph()
+	graph := createGraphc()
 
 	fmt.Println(graph.ReachableNodes("2"))
 	fmt.Println(graph.ReachableNodes("alpha"))
@@ -27,14 +27,14 @@ func ExampleReachableNodes_Graph() {
 }
 
 func ExampleConnectedComponents_Graph() {
-	fmt.Println(createGraph().ConnectedComponents())
+	fmt.Println(createGraphc().ConnectedComponents())
 
 	// Output:
-	// [[alpha] [2 3 4 5]]
+	// [[alpha] [3 4 5 2]]
 }
 
 func TestReachableNodes(t *testing.T) {
-	reachable := createGraph().ReachableNodes("2")
+	reachable := createGraphc().ReachableNodes("2")
 
 	if len(reachable) != 3 {
 		t.Fail()
@@ -48,13 +48,13 @@ func TestReachableNodes(t *testing.T) {
 }
 
 func TestUnreachableNodes(t *testing.T) {
-	if len(createGraph().ReachableNodes("alpha")) != 0 {
+	if len(createGraphc().ReachableNodes("alpha")) != 0 {
 		t.Fail()
 	}
 }
 
 func TestConnectedComponents(t *testing.T) {
-	if len(createGraph().ConnectedComponents()) != 2 {
+	if len(createGraphc().ConnectedComponents()) != 2 {
 		t.Fail()
 	}
 }
