@@ -11,10 +11,10 @@ func (l *Link) Less(other interface{}) bool {
 func (g *Graph) MST() []Link {
 	result := []Link{}
 
-	ribQueue := NewPriorityQueue(0)
+	linkQueue := NewPriorityQueue(0)
 	for _, startNode := range g.Nodes() {
 		for endNode, weight := range g.nodes[startNode].Adjacent {
-			ribQueue.Enqueue(NewLink(startNode, endNode, g.Weighed, weight))
+			linkQueue.Enqueue(NewLink(startNode, endNode, g.Weighed, weight))
 		}
 	}
 	
@@ -24,8 +24,8 @@ func (g *Graph) MST() []Link {
 		sets[node] = -1
 	}
 	
-	for !ribQueue.IsEmpty() {
-		link := *(ribQueue.Dequeue().(*Link))
+	for !linkQueue.IsEmpty() {
+		link := *(linkQueue.Dequeue().(*Link))
 		if sets[link.Start] == -1 && sets[link.End] == -1 {
 			sets[link.Start] = setCount
 			sets[link.End] = setCount
