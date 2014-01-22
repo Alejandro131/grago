@@ -150,3 +150,12 @@ func ExampleNodes_Graph() {
 	// Output:
 	// [alpha 2 3 4 5]
 }
+
+func ExampleLinks_Graph() {
+	data, _ := ioutil.ReadFile("exampleGraph.txt")
+	graph := ReadGraph(string(data))
+	fmt.Println(graph.Links())
+
+	// Output:
+	// [2-(2)->3]
+}

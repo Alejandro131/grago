@@ -270,3 +270,17 @@ func (g *Graph) Nodes() []string {
 	
 	return result
 }
+
+// Returns a slice with the all the links
+// in the graph.
+func (g *Graph) Links() []Link {
+	result := []Link{}
+	
+	for _, startNode := range g.Nodes() {
+		for endNode, weight := range g.nodes[startNode].Adjacent {
+			result = append(result, *NewLink(startNode, endNode, g.Weighed, weight))
+		}
+	}
+	
+	return result
+}
