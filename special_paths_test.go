@@ -5,7 +5,7 @@ import (
 	"testing"
 )
 
-func createGraph() *Graph {
+func createGraphsp() *Graph {
 	graph := NewGraph(false, true, false)
 	graph.AddNode("alpha")
 	graph.AddLink("2", "3", 2)
@@ -15,7 +15,7 @@ func createGraph() *Graph {
 	return graph
 }
 
-func createGraph2() *Graph {
+func createGraphsp2() *Graph {
 	graph := NewGraph(false, true, false)
 	graph.AddNode("alpha")
 	graph.AddLink("2", "3", 2)
@@ -23,17 +23,29 @@ func createGraph2() *Graph {
 	return graph
 }
 
+func createGraphsp3() *Graph {
+	graph := NewGraph(false, false, false)
+	graph.AddLink("1", "2", 1)
+	graph.AddLink("1", "5", 1)
+	graph.AddLink("2", "3", 1)
+	graph.AddLink("2", "4", 1)
+	graph.AddLink("2", "5", 1)
+	graph.AddLink("3", "4", 1)
+	graph.AddLink("4", "5", 1)
+	return graph
+}
+
 func ExampleEulerPath_Graph() {
-	fmt.Println(createGraph().EulerPath())
-	fmt.Println(createGraph2().EulerPath())
+	fmt.Println(createGraphsp().EulerPath())
+	fmt.Println(createGraphsp2().EulerPath())
 
 	// Output:
-	// [2-(2)->3 3-(8)->5 5-(10)->4 4-(5)->2]
+	// [3-(8)->5 5-(10)->4 4-(5)->2 2-(2)->3]
 	// []
 }
 
 func ExampleHamiltonPath_Graph() {
-	graph := createGraph()
+	graph := createGraphsp()
 
 	fmt.Println(graph.HamiltonPath())
 
@@ -43,11 +55,11 @@ func ExampleHamiltonPath_Graph() {
 
 	// Output:
 	// []
-	// [2-(2)->3 3-(8)->5 5-(10)->4 4-(5)->2]
+	// [2-(2)->3 3-(8)->5 5-(10)->4]
 }
 
 func TestEulerPath(t *testing.T) {
-	path := createGraph().EulerPath()
+	path := createGraphsp().EulerPath()
 
 	if len(path) != 4 {
 		t.Fail()
@@ -61,22 +73,38 @@ func TestEulerPath(t *testing.T) {
 }
 
 func TestNoEulerPath(t *testing.T) {
-	if len(createGraph2().EulerPath()) != 0 {
+	if len(createGraphsp2().EulerPath()) != 0 {
 		t.Fail()
 	}
 }
 
 func TestHamiltonPath(t *testing.T) {
-	graph := createGraph()
+	graph := createGraphsp()
 	graph.RemoveNode("alpha")
+
+	if len(graph.HamiltonPath()) != 3 {
+		t.Fail()
+	}
+}
+
+func TestNoHamiltonPath(t *testing.T) {
+	if len(createGraphsp().HamiltonPath()) != 0 {
+		t.Fail()
+	}
+}
+
+func TestHamiltonPath2(t *testing.T) {
+	graph := createGraphsp3()
 
 	if len(graph.HamiltonPath()) != 4 {
 		t.Fail()
 	}
 }
 
-func TestNoHamiltonPath(t *testing.T) {
-	if len(createGraph().HamiltonPath()) != 0 {
+func TestEulerPath2(t *testing.T) {
+	path := createGraphsp3().EulerPath()
+
+	if len(path) != 7 {
 		t.Fail()
 	}
 }

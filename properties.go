@@ -4,6 +4,7 @@ package grago
 // graph contains atleast one cycle, which means
 // that some edges form a closed circle.
 func (g *Graph) HasCycle() bool {
+	//dfs
 }
 
 // Returns a boolean value of whether or not the
@@ -17,4 +18,5 @@ func (g *Graph) IsPlanar() bool {
 // can be split into two groups where there aren't any
 // edges between vertices of the same group.
 func (g *Graph) IsBipartite() bool {
+	//2 sets
 }

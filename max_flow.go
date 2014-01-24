@@ -1,6 +1,8 @@
 package grago
 
-// Helper function for the max flow algorithm
+// Helper function for the max flow algorithm which
+// finds a path through which we can establish a 
+// flow from the source to the sink
 func flowDFS(startNode string, flowPath *[]string, newFlow *bool, marked *map[string]bool, sink string, adjacency *map[string]map[string]int, flow *map[string]map[string]int) {
 	if *newFlow {
 		return
@@ -27,7 +29,9 @@ func flowDFS(startNode string, flowPath *[]string, newFlow *bool, marked *map[st
 	}
 }
 
-// Helper function for the max flow algorithm
+// Helper function for the max flow algorithm which
+// applies the flow from the source to the sink and
+// adds a blocking flow backwards
 func updateFlow(flowPath *[]string, adjacency *map[string]map[string]int, flow *map[string]map[string]int) {
 	increaseFlow := 0
 	
