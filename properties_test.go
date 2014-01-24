@@ -5,7 +5,7 @@ import (
 	"testing"
 )
 
-func createGraph() *Graph {
+func createGraphpr() *Graph {
 	graph := NewGraph(false, true, false)
 	graph.AddNode("alpha")
 	graph.AddLink("2", "3", 2)
@@ -15,24 +15,33 @@ func createGraph() *Graph {
 	return graph
 }
 
-func createGraph2() *Graph {
+func createGraphpr2() *Graph {
 	graph := NewGraph(false, true, false)
 	graph.AddLink("2", "4", 5)
 	graph.AddLink("3", "5", 8)
 	return graph
 }
 
+func createGraphpr3() *Graph {
+	graph := NewGraph(true, true, false)
+	graph.AddLink("2", "4", 5)
+	graph.AddLink("3", "5", 8)
+	return graph
+}
+
 func ExampleHasCycle_Graph() {
-	fmt.Println(createGraph().HasCycle())
-	fmt.Println(createGraph2().HasCycle())
+	fmt.Println(createGraphpr().HasCycle())
+	fmt.Println(createGraphpr2().HasCycle())
+	fmt.Println(createGraphpr3().HasCycle())
 
 	// Output:
+	// true
 	// true
 	// false
 }
 
 func ExampleIsPlanar_Graph() {
-	graph := createGraph()
+	graph := createGraphpr()
 
 	fmt.Println(graph.IsPlanar())
 
@@ -51,34 +60,47 @@ func ExampleIsPlanar_Graph() {
 }
 
 func ExampleIsBipartite_Graph() {
-	fmt.Println(createGraph2().IsBipartite())
-	fmt.Println(createGraph().IsBipartite())
+	graph := createGraphpr()
+
+	fmt.Println(createGraphpr2().IsBipartite())
+	fmt.Println(graph.IsBipartite())
+	
+	graph.AddLink("2", "5", 20)
+	
+	fmt.Println(graph.IsBipartite())
 
 	// Output:
+	// true
 	// true
 	// false
 }
 
 func TestCycle(t *testing.T) {
-	if createGraph().HasCycle() == false {
+	if createGraphpr().HasCycle() == false {
+		t.Fail()
+	}
+}
+
+func TestCycle2(t *testing.T) {
+	if createGraphpr2().HasCycle() == false {
 		t.Fail()
 	}
 }
 
 func TestNoCycle(t *testing.T) {
-	if createGraph2().HasCycle() == true {
+	if createGraphpr3().HasCycle() == true {
 		t.Fail()
 	}
 }
 
 func TestPlanar(t *testing.T) {
-	if createGraph().IsPlanar() == false {
+	if createGraphpr().IsPlanar() == false {
 		t.Fail()
 	}
 }
 
 func TestNonPlanar(t *testing.T) {
-	graph := createGraph()
+	graph := createGraphpr()
 	graph.AddLink("2", "5", 20)
 	graph.AddLink("3", "4", 15)
 	graph.AddLink("2", "alpha", 1)
@@ -92,13 +114,23 @@ func TestNonPlanar(t *testing.T) {
 }
 
 func TestBipartite(t *testing.T) {
-	if createGraph2().IsBipartite() == false {
+	if createGraphpr2().IsBipartite() == false {
+		t.Fail()
+	}
+}
+
+func TestBipartite2(t *testing.T) {
+	if createGraphpr().IsBipartite() == false {
 		t.Fail()
 	}
 }
 
 func TestNonBipartite(t *testing.T) {
-	if createGraph().IsBipartite() == true {
+	graph := createGraphpr()
+	
+	graph.AddLink("3", "4", 7)
+	
+	if graph.IsBipartite() == true {
 		t.Fail()
 	}
 }

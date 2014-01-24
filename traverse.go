@@ -31,7 +31,6 @@ func (g *Graph) BFS(start string) [][]string {
 		}
 		currentLevel = currentLevel[:0] //clear the level and prepare it for the next iteration
 		currentLevel = append(currentLevel, nextLevel...)
-		nextLevel = nextLevel[:0]
 	}
 	
 	return result
