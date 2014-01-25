@@ -39,7 +39,7 @@ type Queue struct {
 
 // New creates and initializes a new priority queue, taking
 // a limit as a parameter. If 0 given, then queue will be
-// unlimited. 
+// unlimited.
 func NewPriorityQueue(max int) (q *Queue) {
 	var locker sync.Mutex
 	q = &Queue{Limit: max}
@@ -64,7 +64,7 @@ func (q *Queue) Enqueue(item Interface) (err error) {
 // Dequeue takes an item from the queue. If queue is empty
 // then should block waiting for at least one item.
 func (q *Queue) Dequeue() (item Interface) {
-	q.cond.L.Lock()	
+	q.cond.L.Lock()
 start:
 	x := heap.Pop(q.items)
 	if x == nil {
@@ -106,7 +106,7 @@ func (s *sorter) Push(i interface{}) {
 
 func (s *sorter) Pop() (x interface{}) {
 	if s.Len() > 0 {
-		l := s.Len()-1
+		l := s.Len() - 1
 		x = (*s)[l]
 		(*s)[l] = nil
 		*s = (*s)[:l]

@@ -65,9 +65,9 @@ func ExampleIsBipartite_Graph() {
 
 	fmt.Println(createGraphpr2().IsBipartite())
 	fmt.Println(graph.IsBipartite())
-	
+
 	graph.AddLink("2", "5", 20)
-	
+
 	fmt.Println(graph.IsBipartite())
 
 	// Output:
@@ -97,7 +97,7 @@ func TestNoCycle(t *testing.T) {
 func TestPlanar(t *testing.T) {
 	graph := createGraphpr()
 	graph.RemoveNode("alpha")
-	
+
 	if graph.IsPlanar() == false {
 		t.Fail()
 	}
@@ -131,9 +131,9 @@ func TestBipartite2(t *testing.T) {
 
 func TestNonBipartite(t *testing.T) {
 	graph := createGraphpr()
-	
+
 	graph.AddLink("3", "4", 7)
-	
+
 	if graph.IsBipartite() == true {
 		t.Fail()
 	}

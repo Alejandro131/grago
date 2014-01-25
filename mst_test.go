@@ -71,15 +71,15 @@ func TestMST2(t *testing.T) {
 	if treeLinks[2].Weight != 5 {
 		t.Fail()
 	}
-	
+
 	if treeLinks[3].Weight != 8 {
 		t.Fail()
 	}
-	
+
 	if treeLinks[4].Weight != 10 {
 		t.Fail()
 	}
-	
+
 	if treeLinks[5].Weight != 200 {
 		t.Fail()
 	}

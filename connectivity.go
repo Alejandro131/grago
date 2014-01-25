@@ -5,13 +5,13 @@ package grago
 func (g *Graph) ReachableNodes(node string) []string {
 	result := []string{}
 	levels := g.BFS(node)
-	
+
 	if len(levels) > 1 {
 		for _, nodeList := range levels[1:] {
 			result = append(result, nodeList...)
 		}
 	}
-	
+
 	return result
 }
 
@@ -24,7 +24,7 @@ func (g *Graph) ConnectedComponents() [][]string {
 	for _, node := range g.Nodes() {
 		marked[node] = false
 	}
-	
+
 	for _, node := range g.Nodes() {
 		if !marked[node] {
 			nodeList := append(g.ReachableNodes(node), node)
@@ -34,6 +34,6 @@ func (g *Graph) ConnectedComponents() [][]string {
 			result = append(result, nodeList)
 		}
 	}
-	
+
 	return result
 }

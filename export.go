@@ -16,32 +16,32 @@ import "strconv"
 // empty, the graph will be displayed as is.
 func (g *Graph) Export(highlights []Link, ordered bool, clusters [][]string) string {
 	result := ``
-	
+
 	if g.Oriented {
 		result += `digraph {`
 	} else {
 		result += `graph {`
 	}
-	
+
 	graph := NewGraph(g.Oriented, g.Weighed, g.HasNegativeWeights)
-	
+
 	if len(clusters) != 0 {
 		for clusterID, cluster := range clusters {
 			result += `subgraph cluster` + strconv.Itoa(clusterID) + ` {`
-			
+
 			for _, node := range cluster {
 				result += `"` + node + `" `
 				graph.AddNode(node)
 			}
-			
+
 			result += `}`
 		}
 	}
-	
+
 	if len(highlights) != 0 {
 		for linkID, link := range highlights {
 			graph.AddLink(link.Start, link.End, link.Weight)
-			
+
 			result += `"` + link.Start + `"`
 			if g.Oriented {
 				result += `->`
@@ -49,36 +49,36 @@ func (g *Graph) Export(highlights []Link, ordered bool, clusters [][]string) str
 				result += `--`
 			}
 			result += `"` + link.End + `"`
-			
+
 			result += ` [fontcolor=red color=red `
-			
+
 			if g.Weighed || ordered {
 				result += `label="`
-				
+
 				if g.Weighed && ordered {
-					result += strconv.Itoa(link.Weight) + ` (` + strconv.Itoa(linkID + 1) + `)`
+					result += strconv.Itoa(link.Weight) + ` (` + strconv.Itoa(linkID+1) + `)`
 				} else if g.Weighed {
 					result += strconv.Itoa(link.Weight)
 				} else {
-					result += `(` + strconv.Itoa(linkID + 1) + `)`
+					result += `(` + strconv.Itoa(linkID+1) + `)`
 				}
-				
+
 				result += `"`
 			}
-			
+
 			result += `]; `
-			
+
 			//"2"--"3" [label="2 (1)"];
 		}
 	}
-	
+
 	// Add all nodes that aren't present from the clusters and highlights
 	for _, node := range g.Nodes() {
 		if graph.AddNode(node) {
 			result += `"` + node + `" `
 		}
 	}
-	
+
 	// Add all links that aren't present from the highlights
 	for _, link := range g.Links() {
 		if graph.AddLink(link.Start, link.End, link.Weight) {
@@ -89,12 +89,12 @@ func (g *Graph) Export(highlights []Link, ordered bool, clusters [][]string) str
 				result += `--`
 			}
 			result += `"` + link.End + `"`
-			
+
 			if g.Weighed {
 				result += ` [label="` + strconv.Itoa(link.Weight) + `"]; `
 			}
 		}
 	}
-	
+
 	return result + `}`
 }

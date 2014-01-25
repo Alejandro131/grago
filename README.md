@@ -147,7 +147,7 @@ graph.AddLink("2", "4", 5)
 graph.AddLink("3", "5", 8)
 graph.AddLink("5", "4", 10)
 
-fmt.Println(graph.Export([]Link{}, false, [][]string{}))
+fmt.Println(graph.Export([]grago.Link{}, false, [][]string{}))
 
 // Output:
 // graph { "alpha" "2"--"3" [label="2"]; "2"--"4" [label="5"]; "3"--"5" [label="8"]; "5"--"4" [label="10"];}

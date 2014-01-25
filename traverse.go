@@ -6,13 +6,13 @@ package grago
 // with index 0 containing the initial node.
 func (g *Graph) BFS(start string) [][]string {
 	result := [][]string{}
-	
+
 	marked := make(map[string]bool)
 	for _, node := range g.Nodes() {
 		marked[node] = false
 	}
 	marked[start] = true
-	
+
 	currentLevel := []string{start}
 	result = append(result, []string{start})
 	for len(currentLevel) != 0 {
@@ -32,7 +32,7 @@ func (g *Graph) BFS(start string) [][]string {
 		currentLevel = currentLevel[:0] //clear the level and prepare it for the next iteration
 		currentLevel = append(currentLevel, nextLevel...)
 	}
-	
+
 	return result
 }
 
@@ -59,6 +59,6 @@ func (g *Graph) DFS(start string) []Link {
 	}
 	marked[start] = true
 	g.dfs(start, &marked, &result)
-	
+
 	return result
 }

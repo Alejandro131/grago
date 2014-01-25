@@ -2,25 +2,25 @@ package grago
 
 import (
 	"regexp"
-	"strings"
 	"strconv"
+	"strings"
 )
 
 type Link struct {
-	Start string
-	End string
+	Start   string
+	End     string
 	Weighed bool
-	Weight int
+	Weight  int
 }
 
 func NewLink(start string, end string, weighed bool, weight int) *Link {
 	var l *Link = new(Link)
-	
+
 	l.Start = start
 	l.End = end
 	l.Weighed = weighed
 	l.Weight = weight
-	
+
 	return l
 }
 
@@ -41,9 +41,9 @@ type Node struct {
 
 func NewNode() *Node {
 	var n *Node = new(Node)
-	
+
 	n.Adjacent = make(map[string]int)
-	
+
 	return n
 }
 
@@ -51,11 +51,11 @@ func NewNode() *Node {
 // has an edge to.
 func (n *Node) AdjacentNodes() []string {
 	result := []string{}
-	
+
 	for name := range n.Adjacent {
 		result = append(result, name)
 	}
-	
+
 	return result
 }
 
@@ -81,12 +81,12 @@ type Graph struct {
 
 func NewGraph(oriented bool, weighed bool, hasNegativeWeights bool) *Graph {
 	var g *Graph = new(Graph)
-	
+
 	g.Oriented = oriented
 	g.Weighed = weighed
 	g.HasNegativeWeights = hasNegativeWeights
 	g.nodes = make(map[string]*Node)
-	
+
 	return g
 }
 
@@ -97,25 +97,25 @@ func NewGraph(oriented bool, weighed bool, hasNegativeWeights bool) *Graph {
 // <node> -- <node> [<weight>] - for adding a link
 func ReadGraph(in string) *Graph {
 	var g *Graph = new(Graph)
-	
+
 	g.nodes = make(map[string]*Node)
-	
+
 	lines := strings.Split(in, "\n")
 	attributes := strings.Split(lines[0], " ")
 	g.Oriented, _ = strconv.ParseBool(attributes[0])
 	g.Weighed, _ = strconv.ParseBool(attributes[1])
 	g.HasNegativeWeights, _ = strconv.ParseBool(attributes[2])
-	
+
 	linkRegexString := `(.+) -- (.+)`
 	if g.Weighed {
 		linkRegexString = `(.+) -- (.+) (\d+)`
 	}
-	
+
 	linkRegex := regexp.MustCompile(linkRegexString)
-	
+
 	for _, line := range lines[1:] {
 		linkMatch := linkRegex.FindStringSubmatch(line)
-		
+
 		if len(linkMatch) != 0 { //this line describes a link
 			if g.Weighed {
 				weight, _ := strconv.Atoi(linkMatch[3])
@@ -127,7 +127,7 @@ func ReadGraph(in string) *Graph {
 			g.AddNode(line)
 		}
 	}
-	
+
 	return g
 }
 
@@ -138,15 +138,15 @@ func ReadGraph(in string) *Graph {
 // <node> -- <node> [<weight>] - for all the links
 func (g *Graph) String() string {
 	result := ""
-	
+
 	result += strconv.FormatBool(g.Oriented)
 	result += " " + strconv.FormatBool(g.Weighed)
 	result += " " + strconv.FormatBool(g.HasNegativeWeights) + "\n"
-	
+
 	for node := range g.nodes {
 		result += node + "\n"
 	}
-	
+
 	for node, adjacents := range g.nodes {
 		adjacentList := adjacents.AdjacentNodes()
 		for _, adjNode := range adjacentList {
@@ -157,7 +157,7 @@ func (g *Graph) String() string {
 			}
 		}
 	}
-	
+
 	return result
 }
 
@@ -202,8 +202,8 @@ func (g *Graph) RemoveNode(node string) bool {
 		delete(g.nodes, node)
 		for _, otherNode := range g.nodes {
 			if _, existsNode := otherNode.Adjacent[node]; existsNode {
-			//if there is another node pointing to the one we removed, delete the link
-			delete(otherNode.Adjacent, node)
+				//if there is another node pointing to the one we removed, delete the link
+				delete(otherNode.Adjacent, node)
 			}
 		}
 		return true
@@ -249,13 +249,13 @@ func (g *Graph) OutgoingLinksCount(node string) int {
 // will always match the incoming links.
 func (g *Graph) IncomingLinksCount(node string) int {
 	result := 0
-	
+
 	for _, otherNode := range g.nodes {
 		if _, exists := otherNode.Adjacent[node]; exists { //check if there is an incoming link from another node
 			result++
 		}
 	}
-	
+
 	return result
 }
 
@@ -263,11 +263,11 @@ func (g *Graph) IncomingLinksCount(node string) int {
 // in the graph.
 func (g *Graph) Nodes() []string {
 	result := []string{}
-	
+
 	for name := range g.nodes {
 		result = append(result, name)
 	}
-	
+
 	return result
 }
 
@@ -275,12 +275,12 @@ func (g *Graph) Nodes() []string {
 // in the graph.
 func (g *Graph) Links() []Link {
 	result := []Link{}
-	
+
 	for _, startNode := range g.Nodes() {
 		for endNode, weight := range g.nodes[startNode].Adjacent {
 			result = append(result, *NewLink(startNode, endNode, g.Weighed, weight))
 		}
 	}
-	
+
 	return result
 }
