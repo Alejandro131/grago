@@ -37,7 +37,7 @@ func TestExport(t *testing.T) {
 }
 
 func TestExportConnectedComponents(t *testing.T) {
-	exported := `graph {subgraph cluster0 {"alpha" }subgraph cluster1 {"3" "4" "5" "2" }"2"--"3" [label="2"]; "2"--"4" [label="5"]; "3"--"5" [label="8"]; "4"--"5" [label="10"]; }`
+	exported := `graph {subgraph cluster0 {"3" "4" "5" "2" }subgraph cluster1 {"alpha" }"2"--"3" [label="2"]; "2"--"4" [label="5"]; "3"--"5" [label="8"]; "4"--"5" [label="10"]; }`
 
 	graph := createGraphex()
 
@@ -67,7 +67,7 @@ func TestExportHighlightsUnordered(t *testing.T) {
 }
 
 func TestExportHighlightsOrderedConnectedComponents(t *testing.T) {
-	exported := `graph {subgraph cluster0 {"alpha" }subgraph cluster1 {"3" "4" "5" "2" }"2"--"3" [fontcolor=red color=red label="2 (1)"]; "3"--"5" [fontcolor=red color=red label="8 (2)"]; "5"--"4" [fontcolor=red color=red label="10 (3)"]; "2"--"4" [label="5"]; }`
+	exported := `graph {subgraph cluster0 {"3" "4" "5" "2" }subgraph cluster1 {"alpha" }"2"--"3" [fontcolor=red color=red label="2 (1)"]; "3"--"5" [fontcolor=red color=red label="8 (2)"]; "5"--"4" [fontcolor=red color=red label="10 (3)"]; "2"--"4" [label="5"]; }`
 
 	graph := createGraphex()
 

@@ -15,24 +15,53 @@ func (g *Graph) ReachableNodes(node string) []string {
 	return result
 }
 
+// Helper function implementing the traversing part of
+// Kosaraju's algorithm for strongly connected components.
+func (g *Graph) connectedComponentsDFS(currentNode string, marked *map[string]bool, stack *[]string) {
+	(*marked)[currentNode] = true
+
+	for node := range g.nodes[currentNode].Adjacent {
+		if _, exists := (*marked)[node]; !exists {
+			g.connectedComponentsDFS(node, marked, stack)
+		}
+	}
+
+	*stack = append(*stack, currentNode)
+}
+
 // Return a slice of slices where are given the node names
-// in each separate connected component.
+// in each separate strongly connected component.
 func (g *Graph) ConnectedComponents() [][]string {
 	result := [][]string{}
 
+	stack := []string{}
 	marked := make(map[string]bool)
-	for _, node := range g.Nodes() {
-		marked[node] = false
+	nodeCount := len(g.Nodes())
+
+	for len(marked) != nodeCount {
+		for _, node := range g.Nodes() {
+			if _, exists := marked[node]; !exists {
+				g.connectedComponentsDFS(node, &marked, &stack)
+			}
+		}
 	}
 
-	for _, node := range g.Nodes() {
-		if !marked[node] {
-			nodeList := append(g.ReachableNodes(node), node)
-			for _, otherNodes := range nodeList {
-				marked[otherNodes] = true
+	reverseGraph := ReadGraph(g.String(), true)
+
+	for len(stack) != 0 {
+		currentNode := stack[len(stack)-1]
+		if _, exists := marked[currentNode]; exists {
+			set := reverseGraph.ReachableNodes(currentNode)
+			set = append(set, currentNode)
+
+			for _, node := range set {
+				delete(marked, node)
+				reverseGraph.RemoveNode(node)
 			}
-			result = append(result, nodeList)
+
+			result = append(result, set)
 		}
+		stack = stack[:len(stack)-1]
 	}
 
 	return result

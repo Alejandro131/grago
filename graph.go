@@ -95,7 +95,9 @@ func NewGraph(oriented bool, weighed bool, hasNegativeWeights bool) *Graph {
 // <oriented> <weighed> <hasNegativeWeights> - booleans
 // <node> - for adding a node
 // <node> -- <node> [<weight>] - for adding a link
-func ReadGraph(in string) *Graph {
+// If 'reversed' is true, the graph will be constructed
+// with reversed edges.
+func ReadGraph(in string, reversed bool) *Graph {
 	var g *Graph = new(Graph)
 
 	g.nodes = make(map[string]*Node)
@@ -119,9 +121,17 @@ func ReadGraph(in string) *Graph {
 		if len(linkMatch) != 0 { //this line describes a link
 			if g.Weighed {
 				weight, _ := strconv.Atoi(linkMatch[3])
-				g.AddLink(linkMatch[1], linkMatch[2], weight)
+				if reversed {
+					g.AddLink(linkMatch[2], linkMatch[1], weight)
+				} else {
+					g.AddLink(linkMatch[1], linkMatch[2], weight)
+				}
 			} else {
-				g.AddLink(linkMatch[1], linkMatch[2], 1)
+				if reversed {
+					g.AddLink(linkMatch[2], linkMatch[1], 1)
+				} else {
+					g.AddLink(linkMatch[1], linkMatch[2], 1)
+				}
 			}
 		} else { //this line describes a node
 			g.AddNode(line)

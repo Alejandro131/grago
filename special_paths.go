@@ -43,7 +43,7 @@ func (g Graph) EulerPath() []Link {
 	}
 
 	// Create a copy of the graph as we will manipulate it.
-	graph := ReadGraph(g.String())
+	graph := ReadGraph(g.String(), false)
 
 	stack := []string{start}
 	pathNodes := []string{}

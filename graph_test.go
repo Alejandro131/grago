@@ -38,7 +38,7 @@ func ExampleAdjacentNodes_Node() {
 
 func ExampleReadGraph_Graph() {
 	data, _ := ioutil.ReadFile("exampleGraph.txt")
-	graph := ReadGraph(string(data))
+	graph := ReadGraph(string(data), false)
 
 	fmt.Println(graph)
 
@@ -52,7 +52,7 @@ func ExampleReadGraph_Graph() {
 
 func ExampleString_Graph() {
 	data, _ := ioutil.ReadFile("exampleGraph.txt")
-	graph := ReadGraph(string(data))
+	graph := ReadGraph(string(data), false)
 
 	fmt.Println(graph)
 
@@ -153,7 +153,7 @@ func ExampleNodes_Graph() {
 
 func ExampleLinks_Graph() {
 	data, _ := ioutil.ReadFile("exampleGraph.txt")
-	graph := ReadGraph(string(data))
+	graph := ReadGraph(string(data), false)
 	fmt.Println(graph.Links())
 
 	// Output:

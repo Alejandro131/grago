@@ -95,7 +95,7 @@ func (g *Graph) IsPlanar() bool {
 	}
 
 	for _, node := range g.Nodes() {
-		graph := ReadGraph(g.String())
+		graph := ReadGraph(g.String(), false)
 		graph.RemoveNode(node)
 		if !graph.IsPlanar() {
 			return false
@@ -103,7 +103,7 @@ func (g *Graph) IsPlanar() bool {
 	}
 
 	for _, link := range g.Links() {
-		graph := ReadGraph(g.String())
+		graph := ReadGraph(g.String(), false)
 		graph.RemoveLink(link.Start, link.End)
 		if !graph.IsPlanar() {
 			return false
@@ -111,7 +111,7 @@ func (g *Graph) IsPlanar() bool {
 	}
 
 	for _, link := range g.Links() {
-		graph := ReadGraph(g.String())
+		graph := ReadGraph(g.String(), false)
 		graph.contractLink(link.Start, link.End)
 		if !graph.IsPlanar() {
 			return false
@@ -135,7 +135,7 @@ func (g *Graph) subGraph(nodes []string) *Graph {
 		delete(toDelete, node)
 	}
 
-	graph := ReadGraph(g.String())
+	graph := ReadGraph(g.String(), false)
 
 	for node := range toDelete {
 		graph.RemoveNode(node)

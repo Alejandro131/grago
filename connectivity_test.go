@@ -15,6 +15,16 @@ func createGraphc() *Graph {
 	return graph
 }
 
+func createGraphc2() *Graph {
+	graph := NewGraph(true, true, false)
+	graph.AddNode("alpha")
+	graph.AddLink("2", "3", 2)
+	graph.AddLink("2", "4", 5)
+	graph.AddLink("3", "5", 8)
+	graph.AddLink("5", "4", 10)
+	return graph
+}
+
 func ExampleReachableNodes_Graph() {
 	graph := createGraphc()
 
@@ -28,9 +38,11 @@ func ExampleReachableNodes_Graph() {
 
 func ExampleConnectedComponents_Graph() {
 	fmt.Println(createGraphc().ConnectedComponents())
+	fmt.Println(createGraphc2().ConnectedComponents())
 
 	// Output:
-	// [[alpha] [3 4 5 2]]
+	// [[3 4 5 2] [alpha]]
+	// [[2] [3] [5] [4] [alpha]]
 }
 
 func TestReachableNodes(t *testing.T) {
@@ -55,6 +67,12 @@ func TestUnreachableNodes(t *testing.T) {
 
 func TestConnectedComponents(t *testing.T) {
 	if len(createGraphc().ConnectedComponents()) != 2 {
+		t.Fail()
+	}
+}
+
+func TestConnectedComponents2(t *testing.T) {
+	if len(createGraphc2().ConnectedComponents()) != 5 {
 		t.Fail()
 	}
 }
