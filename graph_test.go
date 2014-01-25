@@ -16,7 +16,7 @@ func createGraph() *Graph {
 	return graph
 }
 
-func ExampleString_Link() {
+func ExampleLink_String() {
 	fmt.Println(NewLink("1", "4", true, 23))
 	fmt.Println(NewLink("1", "4", false, 321321))
 
@@ -25,7 +25,7 @@ func ExampleString_Link() {
 	// 1--4
 }
 
-func ExampleAdjacentNodes_Node() {
+func ExampleNode_AdjacentNodes() {
 	node := NewNode()
 	node.Adjacent["2"] = 1
 	node.Adjacent["5"] = 234
@@ -36,7 +36,7 @@ func ExampleAdjacentNodes_Node() {
 	// [2 5]
 }
 
-func ExampleReadGraph_Graph() {
+func ExampleReadGraph() {
 	data, _ := ioutil.ReadFile("exampleGraph.txt")
 	graph := ReadGraph(string(data), false)
 
@@ -50,7 +50,7 @@ func ExampleReadGraph_Graph() {
 	// 2 -- 3 2
 }
 
-func ExampleString_Graph() {
+func ExampleGraph_String() {
 	data, _ := ioutil.ReadFile("exampleGraph.txt")
 	graph := ReadGraph(string(data), false)
 
@@ -64,7 +64,7 @@ func ExampleString_Graph() {
 	// 2 -- 3 2
 }
 
-func ExampleAddNode_Graph() {
+func ExampleGraph_AddNode() {
 	graph := NewGraph(false, true, false)
 
 	fmt.Println(graph.AddNode("a"))
@@ -77,7 +77,7 @@ func ExampleAddNode_Graph() {
 	// true
 }
 
-func ExampleAddLink_Graph() {
+func ExampleGraph_AddLink() {
 	graph := NewGraph(false, true, false)
 
 	fmt.Println(graph.AddLink("a", "b", 2))
@@ -88,7 +88,7 @@ func ExampleAddLink_Graph() {
 	// false
 }
 
-func ExampleRemoveNode_Graph() {
+func ExampleGraph_RemoveNode() {
 	graph := NewGraph(false, true, false)
 
 	graph.AddNode("a")
@@ -103,7 +103,7 @@ func ExampleRemoveNode_Graph() {
 	// false
 }
 
-func ExampleRemoveLink_Graph() {
+func ExampleGraph_RemoveLink() {
 	graph := NewGraph(false, true, false)
 
 	graph.AddLink("a", "b", 2)
@@ -118,7 +118,7 @@ func ExampleRemoveLink_Graph() {
 	// false
 }
 
-func ExampleOutgoingLinksCount_Graph() {
+func ExampleGraph_OutgoingLinksCount() {
 	graph := createGraph()
 
 	fmt.Println(graph.OutgoingLinksCount("alpha"))
@@ -131,7 +131,7 @@ func ExampleOutgoingLinksCount_Graph() {
 	// 2
 }
 
-func ExampleIncomingLinksCount_Graph() {
+func ExampleGraph_IncomingLinksCount() {
 	graph := createGraph()
 
 	fmt.Println(graph.IncomingLinksCount("alpha"))
@@ -144,14 +144,14 @@ func ExampleIncomingLinksCount_Graph() {
 	// 2
 }
 
-func ExampleNodes_Graph() {
+func ExampleGraph_Nodes() {
 	fmt.Println(createGraph().Nodes())
 
 	// Output:
 	// [alpha 2 3 4 5]
 }
 
-func ExampleLinks_Graph() {
+func ExampleGraph_Links() {
 	data, _ := ioutil.ReadFile("exampleGraph.txt")
 	graph := ReadGraph(string(data), false)
 	fmt.Println(graph.Links())

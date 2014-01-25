@@ -26,7 +26,7 @@ func createGraphm2() *Graph {
 	return graph
 }
 
-func ExampleMST_Graph() {
+func ExampleGraph_MST() {
 	fmt.Println(createGraphm().MST())
 
 	// Output:

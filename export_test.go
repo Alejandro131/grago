@@ -15,7 +15,7 @@ func createGraphex() *Graph {
 	return graph
 }
 
-func ExampleExport_Graph() {
+func ExampleGraph_Export() {
 	graph := createGraphex()
 
 	fmt.Println(graph.Export([]Link{}, false, [][]string{}))

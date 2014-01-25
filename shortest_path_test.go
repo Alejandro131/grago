@@ -37,7 +37,7 @@ func createGraphNegative2() *Graph {
 	return graph
 }
 
-func ExampleFloyd_Graph() {
+func ExampleGraph_Floyd() {
 	paths := createGraphd().Floyd()
 
 	fmt.Println(paths["2"]["5"])
@@ -48,7 +48,7 @@ func ExampleFloyd_Graph() {
 	// 7
 }
 
-func ExampleMinPaths_Graph_dijkstra() {
+func ExampleGraph_MinPaths_dijkstra() {
 	graph := createGraphd()
 
 	fmt.Println(graph.MinPaths("2")["5"])
@@ -59,7 +59,7 @@ func ExampleMinPaths_Graph_dijkstra() {
 	// 7
 }
 
-func ExampleMinPaths_Graph_fordBellman() {
+func ExampleGraph_MinPaths_fordBellman() {
 	graph := createGraphNegative()
 
 	fmt.Println(graph.MinPaths("2")["5"])

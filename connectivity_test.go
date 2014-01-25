@@ -25,7 +25,7 @@ func createGraphc2() *Graph {
 	return graph
 }
 
-func ExampleReachableNodes_Graph() {
+func ExampleGraph_ReachableNodes() {
 	graph := createGraphc()
 
 	fmt.Println(graph.ReachableNodes("2"))
@@ -36,7 +36,7 @@ func ExampleReachableNodes_Graph() {
 	// []
 }
 
-func ExampleConnectedComponents_Graph() {
+func ExampleGraph_ConnectedComponents() {
 	fmt.Println(createGraphc().ConnectedComponents())
 	fmt.Println(createGraphc2().ConnectedComponents())
 

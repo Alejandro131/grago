@@ -29,7 +29,7 @@ func createGraphpr3() *Graph {
 	return graph
 }
 
-func ExampleHasCycle_Graph() {
+func ExampleGraph_HasCycle() {
 	fmt.Println(createGraphpr().HasCycle())
 	fmt.Println(createGraphpr2().HasCycle())
 	fmt.Println(createGraphpr3().HasCycle())
@@ -40,7 +40,7 @@ func ExampleHasCycle_Graph() {
 	// false
 }
 
-func ExampleIsPlanar_Graph() {
+func ExampleGraph_IsPlanar() {
 	graph := createGraphpr()
 	graph.RemoveNode("alpha")
 
@@ -60,7 +60,7 @@ func ExampleIsPlanar_Graph() {
 	// false
 }
 
-func ExampleIsBipartite_Graph() {
+func ExampleGraph_IsBipartite() {
 	graph := createGraphpr()
 
 	fmt.Println(createGraphpr2().IsBipartite())

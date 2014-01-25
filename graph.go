@@ -1,3 +1,5 @@
+// This package provides a basic graph structure, along with
+// some of the popular algorithms in graph theory.
 package grago
 
 import (
@@ -186,7 +188,7 @@ func (g *Graph) AddNode(node string) bool {
 // Tries to add a link between two nodes and returns true
 // if successful, otherwise returns false if such a link
 // already exists.
-
+// 
 // Note: If the graph isn't oriented adding a link from A to B
 // effectively adds a link from B to A.
 func (g *Graph) AddLink(startNode string, endNode string, weight int) bool {
@@ -225,7 +227,7 @@ func (g *Graph) RemoveNode(node string) bool {
 // Tries to remove the link from the graph and if
 // successful returns true, otherwise if the link
 // doesn't exist, returns false.
-
+// 
 // Note: If the graph isn't oriented removing the link from A to B
 // effectively removes the link from B to A.
 func (g *Graph) RemoveLink(startNode string, endNode string) bool {
@@ -245,7 +247,7 @@ func (g *Graph) RemoveLink(startNode string, endNode string) bool {
 
 // Returns the count of the links which have as a starting
 // node the one specified as a parameter.
-
+// 
 // Note: If the graph isn't oriented the outgoing links
 // will always match the incoming links.
 func (g *Graph) OutgoingLinksCount(node string) int {
@@ -254,7 +256,7 @@ func (g *Graph) OutgoingLinksCount(node string) int {
 
 // Returns the count of the links which have as an ending
 // node the one specified as a parameter.
-
+// 
 // Note: If the graph isn't oriented the outgoing links
 // will always match the incoming links.
 func (g *Graph) IncomingLinksCount(node string) int {

@@ -38,7 +38,7 @@ func createGraphmf3() *Graph {
 	return graph
 }
 
-func ExampleMaxFlow_Graph() {
+func ExampleGraph_MaxFlow() {
 	graph := createGraphmf()
 
 	fmt.Println(graph.MaxFlow("2", "5"))

@@ -35,7 +35,7 @@ func createGraphsp3() *Graph {
 	return graph
 }
 
-func ExampleEulerPath_Graph() {
+func ExampleGraph_EulerPath() {
 	fmt.Println(createGraphsp().EulerPath())
 	fmt.Println(createGraphsp2().EulerPath())
 
@@ -44,7 +44,7 @@ func ExampleEulerPath_Graph() {
 	// []
 }
 
-func ExampleHamiltonPath_Graph() {
+func ExampleGraph_HamiltonPath() {
 	graph := createGraphsp()
 
 	fmt.Println(graph.HamiltonPath())

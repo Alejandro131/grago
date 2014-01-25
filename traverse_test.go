@@ -15,14 +15,14 @@ func createGrapht() *Graph {
 	return graph
 }
 
-func ExampleBFS_Graph() {
+func ExampleGraph_BFS() {
 	fmt.Println(createGrapht().BFS("2"))
 
 	// Output:
 	// [[2] [3 4] [5]]
 }
 
-func ExampleDFS_Graph() {
+func ExampleGraph_DFS() {
 	fmt.Println(createGrapht().DFS("2"))
 
 	// Output:
