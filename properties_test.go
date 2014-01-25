@@ -42,6 +42,7 @@ func ExampleHasCycle_Graph() {
 
 func ExampleIsPlanar_Graph() {
 	graph := createGraphpr()
+	graph.RemoveNode("alpha")
 
 	fmt.Println(graph.IsPlanar())
 
@@ -94,7 +95,10 @@ func TestNoCycle(t *testing.T) {
 }
 
 func TestPlanar(t *testing.T) {
-	if createGraphpr().IsPlanar() == false {
+	graph := createGraphpr()
+	graph.RemoveNode("alpha")
+	
+	if graph.IsPlanar() == false {
 		t.Fail()
 	}
 }

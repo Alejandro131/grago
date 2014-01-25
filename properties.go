@@ -86,7 +86,7 @@ func (g *Graph) contractLink(start string, end string) {
 // graph is planar, which means that it can be drawn
 // on a piece of paper with no two edges crossing.
 func (g *Graph) IsPlanar() bool {
-	if len(g.Nodes()) < 5 {
+	if len(g.Nodes()) <= 5 && len(g.Links()) < 10 {
 		return true
 	}
 	
