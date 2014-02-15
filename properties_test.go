@@ -7,25 +7,25 @@ import (
 
 func createGraphpr() *Graph {
 	graph := NewGraph(false, true, false)
-	graph.AddNode("alpha")
-	graph.AddLink("2", "3", 2)
-	graph.AddLink("2", "4", 5)
-	graph.AddLink("3", "5", 8)
-	graph.AddLink("5", "4", 10)
+	graph.AddNode(stringer("alpha"))
+	graph.AddLink(stringer("2"), stringer("3"), 2)
+	graph.AddLink(stringer("2"), stringer("4"), 5)
+	graph.AddLink(stringer("3"), stringer("5"), 8)
+	graph.AddLink(stringer("5"), stringer("4"), 10)
 	return graph
 }
 
 func createGraphpr2() *Graph {
 	graph := NewGraph(false, true, false)
-	graph.AddLink("2", "4", 5)
-	graph.AddLink("3", "5", 8)
+	graph.AddLink(stringer("2"), stringer("4"), 5)
+	graph.AddLink(stringer("3"), stringer("5"), 8)
 	return graph
 }
 
 func createGraphpr3() *Graph {
 	graph := NewGraph(true, true, false)
-	graph.AddLink("2", "4", 5)
-	graph.AddLink("3", "5", 8)
+	graph.AddLink(stringer("2"), stringer("4"), 5)
+	graph.AddLink(stringer("3"), stringer("5"), 8)
 	return graph
 }
 
@@ -42,16 +42,16 @@ func ExampleGraph_HasCycle() {
 
 func ExampleGraph_IsPlanar() {
 	graph := createGraphpr()
-	graph.RemoveNode("alpha")
+	graph.RemoveNode(stringer("alpha"))
 
 	fmt.Println(graph.IsPlanar())
 
-	graph.AddLink("2", "5", 20)
-	graph.AddLink("3", "4", 15)
-	graph.AddLink("2", "alpha", 1)
-	graph.AddLink("3", "alpha", 1)
-	graph.AddLink("4", "alpha", 1)
-	graph.AddLink("5", "alpha", 1)
+	graph.AddLink(stringer("2"), stringer("5"), 20)
+	graph.AddLink(stringer("3"), stringer("4"), 15)
+	graph.AddLink(stringer("2"), stringer("alpha"), 1)
+	graph.AddLink(stringer("3"), stringer("alpha"), 1)
+	graph.AddLink(stringer("4"), stringer("alpha"), 1)
+	graph.AddLink(stringer("5"), stringer("alpha"), 1)
 
 	fmt.Println(graph.IsPlanar())
 
@@ -66,7 +66,7 @@ func ExampleGraph_IsBipartite() {
 	fmt.Println(createGraphpr2().IsBipartite())
 	fmt.Println(graph.IsBipartite())
 
-	graph.AddLink("2", "5", 20)
+	graph.AddLink(stringer("2"), stringer("5"), 20)
 
 	fmt.Println(graph.IsBipartite())
 
@@ -96,7 +96,7 @@ func TestNoCycle(t *testing.T) {
 
 func TestPlanar(t *testing.T) {
 	graph := createGraphpr()
-	graph.RemoveNode("alpha")
+	graph.RemoveNode(stringer("alpha"))
 
 	if graph.IsPlanar() == false {
 		t.Fail()
@@ -105,12 +105,12 @@ func TestPlanar(t *testing.T) {
 
 func TestNonPlanar(t *testing.T) {
 	graph := createGraphpr()
-	graph.AddLink("2", "5", 20)
-	graph.AddLink("3", "4", 15)
-	graph.AddLink("2", "alpha", 1)
-	graph.AddLink("3", "alpha", 1)
-	graph.AddLink("4", "alpha", 1)
-	graph.AddLink("5", "alpha", 1)
+	graph.AddLink(stringer("2"), stringer("5"), 20)
+	graph.AddLink(stringer("3"), stringer("4"), 15)
+	graph.AddLink(stringer("2"), stringer("alpha"), 1)
+	graph.AddLink(stringer("3"), stringer("alpha"), 1)
+	graph.AddLink(stringer("4"), stringer("alpha"), 1)
+	graph.AddLink(stringer("5"), stringer("alpha"), 1)
 
 	if graph.IsPlanar() == true {
 		t.Fail()
@@ -132,7 +132,7 @@ func TestBipartite2(t *testing.T) {
 func TestNonBipartite(t *testing.T) {
 	graph := createGraphpr()
 
-	graph.AddLink("3", "4", 7)
+	graph.AddLink(stringer("3"), stringer("4"), 7)
 
 	if graph.IsBipartite() == true {
 		t.Fail()

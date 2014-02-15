@@ -7,18 +7,18 @@ import (
 
 func createGraph() *Graph {
 	graph := NewGraph(false, true, false)
-	graph.AddNode("alpha")
-	graph.AddLink("2", "alpha", 2)
-	graph.AddLink("2", "3", 2)
-	graph.AddLink("2", "4", 5)
-	graph.AddLink("3", "5", 8)
-	graph.AddLink("5", "4", 10)
+	graph.AddNode(stringer("alpha"))
+	graph.AddLink(stringer("2"), stringer("alpha"), 2)
+	graph.AddLink(stringer("2"), stringer("3"), 2)
+	graph.AddLink(stringer("2"), stringer("4"), 5)
+	graph.AddLink(stringer("3"), stringer("5"), 8)
+	graph.AddLink(stringer("5"), stringer("4"), 10)
 	return graph
 }
 
 func ExampleLink_String() {
-	fmt.Println(NewLink("1", "4", true, 23))
-	fmt.Println(NewLink("1", "4", false, 321321))
+	fmt.Println(NewLink(stringer("1"), stringer("4"), true, 23))
+	fmt.Println(NewLink(stringer("1"), stringer("4"), false, 321321))
 
 	// Output:
 	// 1-(23)->4
@@ -27,8 +27,8 @@ func ExampleLink_String() {
 
 func ExampleNode_AdjacentNodes() {
 	node := NewNode()
-	node.Adjacent["2"] = 1
-	node.Adjacent["5"] = 234
+	node.Adjacent[stringer("2")] = 1
+	node.Adjacent[stringer("5")] = 234
 
 	fmt.Println(node.AdjacentNodes())
 
@@ -67,9 +67,9 @@ func ExampleGraph_String() {
 func ExampleGraph_AddNode() {
 	graph := NewGraph(false, true, false)
 
-	fmt.Println(graph.AddNode("a"))
-	fmt.Println(graph.AddNode("a"))
-	fmt.Println(graph.AddNode("b"))
+	fmt.Println(graph.AddNode(stringer("a")))
+	fmt.Println(graph.AddNode(stringer("a")))
+	fmt.Println(graph.AddNode(stringer("b")))
 
 	// Output:
 	// true
@@ -80,8 +80,8 @@ func ExampleGraph_AddNode() {
 func ExampleGraph_AddLink() {
 	graph := NewGraph(false, true, false)
 
-	fmt.Println(graph.AddLink("a", "b", 2))
-	fmt.Println(graph.AddLink("a", "b", 5))
+	fmt.Println(graph.AddLink(stringer("a"), stringer("b"), 2))
+	fmt.Println(graph.AddLink(stringer("a"), stringer("b"), 5))
 
 	// Output:
 	// true
@@ -91,11 +91,11 @@ func ExampleGraph_AddLink() {
 func ExampleGraph_RemoveNode() {
 	graph := NewGraph(false, true, false)
 
-	graph.AddNode("a")
+	graph.AddNode(stringer("a"))
 
-	fmt.Println(graph.RemoveNode("a"))
-	fmt.Println(graph.RemoveNode("a"))
-	fmt.Println(graph.RemoveNode("b"))
+	fmt.Println(graph.RemoveNode(stringer("a")))
+	fmt.Println(graph.RemoveNode(stringer("a")))
+	fmt.Println(graph.RemoveNode(stringer("b")))
 
 	// Output:
 	// true
@@ -106,11 +106,11 @@ func ExampleGraph_RemoveNode() {
 func ExampleGraph_RemoveLink() {
 	graph := NewGraph(false, true, false)
 
-	graph.AddLink("a", "b", 2)
+	graph.AddLink(stringer("a"), stringer("b"), 2)
 
-	fmt.Println(graph.RemoveLink("a", "b"))
-	fmt.Println(graph.RemoveLink("a", "b"))
-	fmt.Println(graph.RemoveLink("a", "c"))
+	fmt.Println(graph.RemoveLink(stringer("a"), stringer("b")))
+	fmt.Println(graph.RemoveLink(stringer("a"), stringer("b")))
+	fmt.Println(graph.RemoveLink(stringer("a"), stringer("c")))
 
 	// Output:
 	// true
@@ -121,9 +121,9 @@ func ExampleGraph_RemoveLink() {
 func ExampleGraph_OutgoingLinksCount() {
 	graph := createGraph()
 
-	fmt.Println(graph.OutgoingLinksCount("alpha"))
-	fmt.Println(graph.OutgoingLinksCount("2"))
-	fmt.Println(graph.OutgoingLinksCount("3"))
+	fmt.Println(graph.OutgoingLinksCount(stringer("alpha")))
+	fmt.Println(graph.OutgoingLinksCount(stringer("2")))
+	fmt.Println(graph.OutgoingLinksCount(stringer("3")))
 
 	// Output:
 	// 1
@@ -134,9 +134,9 @@ func ExampleGraph_OutgoingLinksCount() {
 func ExampleGraph_IncomingLinksCount() {
 	graph := createGraph()
 
-	fmt.Println(graph.IncomingLinksCount("alpha"))
-	fmt.Println(graph.IncomingLinksCount("2"))
-	fmt.Println(graph.IncomingLinksCount("3"))
+	fmt.Println(graph.IncomingLinksCount(stringer("alpha")))
+	fmt.Println(graph.IncomingLinksCount(stringer("2")))
+	fmt.Println(graph.IncomingLinksCount(stringer("3")))
 
 	// Output:
 	// 1

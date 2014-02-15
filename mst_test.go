@@ -7,22 +7,22 @@ import (
 
 func createGraphm() *Graph {
 	graph := NewGraph(false, true, false)
-	graph.AddLink("2", "3", 2)
-	graph.AddLink("2", "4", 5)
-	graph.AddLink("3", "5", 8)
-	graph.AddLink("5", "4", 10)
+	graph.AddLink(stringer("2"), stringer("3"), 2)
+	graph.AddLink(stringer("2"), stringer("4"), 5)
+	graph.AddLink(stringer("3"), stringer("5"), 8)
+	graph.AddLink(stringer("5"), stringer("4"), 10)
 	return graph
 }
 
 func createGraphm2() *Graph {
 	graph := NewGraph(false, true, false)
-	graph.AddLink("alpha", "beta", 2)
-	graph.AddLink("2", "4", 5)
-	graph.AddLink("3", "5", 8)
-	graph.AddLink("5", "4", 10)
-	graph.AddLink("5", "zeta", 10)
-	graph.AddLink("2", "zeta", 1)
-	graph.AddLink("alpha", "zeta", 200)
+	graph.AddLink(stringer("alpha"), stringer("beta"), 2)
+	graph.AddLink(stringer("2"), stringer("4"), 5)
+	graph.AddLink(stringer("3"), stringer("5"), 8)
+	graph.AddLink(stringer("5"), stringer("4"), 10)
+	graph.AddLink(stringer("5"), stringer("zeta"), 10)
+	graph.AddLink(stringer("2"), stringer("zeta"), 1)
+	graph.AddLink(stringer("alpha"), stringer("zeta"), 200)
 	return graph
 }
 

@@ -1,13 +1,15 @@
 package grago
 
+import "fmt"
+
 // Returns a matrix of node names, where you can find
 // the minimum distance between two nodes, given their names.
-func (g *Graph) Floyd() map[string]map[string]int {
-	result := make(map[string]map[string]int)
+func (g *Graph) Floyd() map[fmt.Stringer]map[fmt.Stringer]int {
+	result := make(map[fmt.Stringer]map[fmt.Stringer]int)
 
 	nodeList := g.Nodes()
 	for _, node := range nodeList {
-		result[node] = make(map[string]int)
+		result[node] = make(map[fmt.Stringer]int)
 		result[node][node] = 0
 		for endNode, weight := range g.nodes[node].Adjacent {
 			result[node][endNode] = weight
@@ -36,7 +38,7 @@ func (g *Graph) Floyd() map[string]map[string]int {
 // Internally it chooses between Dijkstra's and Ford Bellman's
 // algorithms depending on whether the graph has negative weights
 // or not.
-func (g *Graph) MinPaths(start string) map[string]int {
+func (g *Graph) MinPaths(start fmt.Stringer) map[fmt.Stringer]int {
 	if g.HasNegativeWeights {
 		return g.fordBellman(start)
 	} else {
@@ -45,8 +47,8 @@ func (g *Graph) MinPaths(start string) map[string]int {
 }
 
 // Dijkstra's implementation of the shortest path algorithm.
-func (g *Graph) dijkstra(start string) map[string]int {
-	result := make(map[string]int)
+func (g *Graph) dijkstra(start fmt.Stringer) map[fmt.Stringer]int {
+	result := make(map[fmt.Stringer]int)
 
 	result[start] = 0
 	distanceQueue := NewPriorityQueue(0)
@@ -66,8 +68,8 @@ func (g *Graph) dijkstra(start string) map[string]int {
 }
 
 // Ford Bellman's implementation of the shortest path algorithm.
-func (g *Graph) fordBellman(start string) map[string]int {
-	result := make(map[string]int)
+func (g *Graph) fordBellman(start fmt.Stringer) map[fmt.Stringer]int {
+	result := make(map[fmt.Stringer]int)
 
 	result[start] = 0
 	links := g.Links()

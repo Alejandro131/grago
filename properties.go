@@ -1,9 +1,11 @@
 package grago
 
+import "fmt"
+
 // Helper function for HasCycle doing a DFS and
 // searching for already marked nodes indicating
 // a present cycle.
-func (g *Graph) cycleDFS(start string, marked *map[string]bool, hasCycle *bool) {
+func (g *Graph) cycleDFS(start fmt.Stringer, marked *map[fmt.Stringer]bool, hasCycle *bool) {
 	for node := range g.nodes[start].Adjacent {
 		if !(*marked)[node] {
 			(*marked)[node] = true
@@ -27,7 +29,7 @@ func (g *Graph) cycleDFS(start string, marked *map[string]bool, hasCycle *bool) 
 func (g *Graph) HasCycle() bool {
 	hasCycle := false
 
-	marked := make(map[string]bool)
+	marked := make(map[fmt.Stringer]bool)
 	for _, node := range g.Nodes() {
 		marked[node] = false
 	}
@@ -60,7 +62,7 @@ func (g *Graph) isK5() bool {
 
 // Helper function for IsPlanar, merging two nodes
 // into one.
-func (g *Graph) contractLink(start string, end string) {
+func (g *Graph) contractLink(start fmt.Stringer, end fmt.Stringer) {
 	g.RemoveLink(start, end)
 
 	// Make every incoming connection of end node an
@@ -124,8 +126,8 @@ func (g *Graph) IsPlanar() bool {
 // Helper function for the IsBipartite function,
 // creating a subgraph with only the nodes provided
 // and links between them.
-func (g *Graph) subGraph(nodes []string) *Graph {
-	toDelete := make(map[string]bool)
+func (g *Graph) subGraph(nodes []fmt.Stringer) *Graph {
+	toDelete := make(map[fmt.Stringer]bool)
 
 	for _, node := range g.Nodes() {
 		toDelete[node] = true
@@ -164,7 +166,7 @@ func (g *Graph) IsBipartite() bool {
 		return true
 	}
 
-	sets := make(map[string]int)
+	sets := make(map[fmt.Stringer]int)
 	for _, node := range g.Nodes() {
 		sets[node] = -1
 	}
@@ -173,9 +175,9 @@ func (g *Graph) IsBipartite() bool {
 	start := g.Nodes()[0]
 	sets[start] = currentSet
 
-	currentLevel := []string{start}
+	currentLevel := []fmt.Stringer{start}
 	for len(currentLevel) != 0 {
-		nextLevel := []string{}
+		nextLevel := []fmt.Stringer{}
 
 		for _, node := range currentLevel {
 			for adjacentNode := range g.nodes[node].Adjacent {

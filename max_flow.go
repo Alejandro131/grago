@@ -1,9 +1,11 @@
 package grago
 
+import "fmt"
+
 // Helper function for the max flow algorithm which
 // finds a path through which we can establish a
 // flow from the source to the sink
-func flowDFS(startNode string, flowPath *[]string, newFlow *bool, marked *map[string]bool, sink string, adjacency *map[string]map[string]int, flow *map[string]map[string]int) {
+func flowDFS(startNode fmt.Stringer, flowPath *[]fmt.Stringer, newFlow *bool, marked *map[fmt.Stringer]bool, sink fmt.Stringer, adjacency *map[fmt.Stringer]map[fmt.Stringer]int, flow *map[fmt.Stringer]map[fmt.Stringer]int) {
 	if *newFlow {
 		return
 	}
@@ -32,7 +34,7 @@ func flowDFS(startNode string, flowPath *[]string, newFlow *bool, marked *map[st
 // Helper function for the max flow algorithm which
 // applies the flow from the source to the sink and
 // adds a blocking flow backwards
-func updateFlow(flowPath *[]string, adjacency *map[string]map[string]int, flow *map[string]map[string]int) {
+func updateFlow(flowPath *[]fmt.Stringer, adjacency *map[fmt.Stringer]map[fmt.Stringer]int, flow *map[fmt.Stringer]map[fmt.Stringer]int) {
 	increaseFlow := 0
 
 	if len(*flowPath) >= 2 {
@@ -56,13 +58,13 @@ func updateFlow(flowPath *[]string, adjacency *map[string]map[string]int, flow *
 // Returns the maximum ammount that can flow from
 // the source to the sink for 1 period of time
 // according to the min-cut max-flow algorithm.
-func (g *Graph) MaxFlow(source string, sink string) int {
-	flow := make(map[string]map[string]int)
-	adjacency := make(map[string]map[string]int)
+func (g *Graph) MaxFlow(source fmt.Stringer, sink fmt.Stringer) int {
+	flow := make(map[fmt.Stringer]map[fmt.Stringer]int)
+	adjacency := make(map[fmt.Stringer]map[fmt.Stringer]int)
 
 	for _, startNode := range g.Nodes() {
-		adjacency[startNode] = make(map[string]int)
-		flow[startNode] = make(map[string]int)
+		adjacency[startNode] = make(map[fmt.Stringer]int)
+		flow[startNode] = make(map[fmt.Stringer]int)
 
 		for _, endNode := range g.Nodes() {
 			flow[startNode][endNode] = 0
@@ -76,7 +78,7 @@ func (g *Graph) MaxFlow(source string, sink string) int {
 		}
 	}
 
-	marked := make(map[string]bool)
+	marked := make(map[fmt.Stringer]bool)
 	for _, node := range g.Nodes() {
 		marked[node] = false
 	}
@@ -88,7 +90,7 @@ func (g *Graph) MaxFlow(source string, sink string) int {
 		}
 		newFlow = false
 		marked[source] = true
-		flowPath := []string{source}
+		flowPath := []fmt.Stringer{source}
 
 		flowDFS(source, &flowPath, &newFlow, &marked, sink, &adjacency, &flow)
 	}

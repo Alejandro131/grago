@@ -7,29 +7,29 @@ import (
 
 func createGraphc() *Graph {
 	graph := NewGraph(false, true, false)
-	graph.AddNode("alpha")
-	graph.AddLink("2", "3", 2)
-	graph.AddLink("2", "4", 5)
-	graph.AddLink("3", "5", 8)
-	graph.AddLink("5", "4", 10)
+	graph.AddNode(stringer("alpha"))
+	graph.AddLink(stringer("2"), stringer("3"), 2)
+	graph.AddLink(stringer("2"), stringer("4"), 5)
+	graph.AddLink(stringer("3"), stringer("5"), 8)
+	graph.AddLink(stringer("5"), stringer("4"), 10)
 	return graph
 }
 
 func createGraphc2() *Graph {
 	graph := NewGraph(true, true, false)
-	graph.AddNode("alpha")
-	graph.AddLink("2", "3", 2)
-	graph.AddLink("2", "4", 5)
-	graph.AddLink("3", "5", 8)
-	graph.AddLink("5", "4", 10)
+	graph.AddNode(stringer("alpha"))
+	graph.AddLink(stringer("2"), stringer("3"), 2)
+	graph.AddLink(stringer("2"), stringer("4"), 5)
+	graph.AddLink(stringer("3"), stringer("5"), 8)
+	graph.AddLink(stringer("5"), stringer("4"), 10)
 	return graph
 }
 
 func ExampleGraph_ReachableNodes() {
 	graph := createGraphc()
 
-	fmt.Println(graph.ReachableNodes("2"))
-	fmt.Println(graph.ReachableNodes("alpha"))
+	fmt.Println(graph.ReachableNodes(stringer("2")))
+	fmt.Println(graph.ReachableNodes(stringer("alpha")))
 
 	// Output:
 	// [3 4 5]
@@ -46,21 +46,21 @@ func ExampleGraph_ConnectedComponents() {
 }
 
 func TestReachableNodes(t *testing.T) {
-	reachable := createGraphc().ReachableNodes("2")
+	reachable := createGraphc().ReachableNodes(stringer("2"))
 
 	if len(reachable) != 3 {
 		t.Fail()
 	}
 
 	for _, node := range reachable {
-		if node == "alpha" {
+		if node == stringer("alpha") {
 			t.Fail()
 		}
 	}
 }
 
 func TestUnreachableNodes(t *testing.T) {
-	if len(createGraphc().ReachableNodes("alpha")) != 0 {
+	if len(createGraphc().ReachableNodes(stringer("alpha"))) != 0 {
 		t.Fail()
 	}
 }

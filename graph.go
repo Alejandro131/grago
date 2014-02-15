@@ -6,16 +6,23 @@ import (
 	"regexp"
 	"strconv"
 	"strings"
+	"fmt"
 )
 
+type stringer string
+
+func (s stringer) String() string {
+	return string(s)
+} 
+
 type Link struct {
-	Start   string
-	End     string
+	Start   fmt.Stringer
+	End     fmt.Stringer
 	Weighed bool
 	Weight  int
 }
 
-func NewLink(start string, end string, weighed bool, weight int) *Link {
+func NewLink(start fmt.Stringer, end fmt.Stringer, weighed bool, weight int) *Link {
 	var l *Link = new(Link)
 
 	l.Start = start
@@ -29,33 +36,32 @@ func NewLink(start string, end string, weighed bool, weight int) *Link {
 // A string representation of Link used for output.
 func (l Link) String() string {
 	if l.Weighed {
-		return l.Start + "-(" + strconv.Itoa(l.Weight) + ")->" + l.End
+		return l.Start.String() + "-(" + strconv.Itoa(l.Weight) + ")->" + l.End.String()
 	} else {
-		return l.Start + "--" + l.End
+		return l.Start.String() + "--" + l.End.String()
 	}
 }
 
 type Node struct {
 	// A container for all the nodes, that this node has an
 	// outgoing connection to.
-	Adjacent map[string]int
+	Adjacent map[fmt.Stringer]int
 }
 
 func NewNode() *Node {
 	var n *Node = new(Node)
 
-	n.Adjacent = make(map[string]int)
+	n.Adjacent = make(map[fmt.Stringer]int)
 
 	return n
 }
 
-// Returns a slice of the names of the nodes this node
-// has an edge to.
-func (n *Node) AdjacentNodes() []string {
-	result := []string{}
+// Returns a slice of the nodes this node has an edge to.
+func (n *Node) AdjacentNodes() []fmt.Stringer {
+	result := []fmt.Stringer{}
 
-	for name := range n.Adjacent {
-		result = append(result, name)
+	for node := range n.Adjacent {
+		result = append(result, node)
 	}
 
 	return result
@@ -76,9 +82,8 @@ type Graph struct {
 	// finding.
 	HasNegativeWeights bool
 
-	// A container for all the nodes in the graph, accessible by
-	// their given names.
-	nodes map[string]*Node
+	// A container for all the nodes in the graph.
+	nodes map[fmt.Stringer]*Node
 }
 
 func NewGraph(oriented bool, weighed bool, hasNegativeWeights bool) *Graph {
@@ -87,7 +92,7 @@ func NewGraph(oriented bool, weighed bool, hasNegativeWeights bool) *Graph {
 	g.Oriented = oriented
 	g.Weighed = weighed
 	g.HasNegativeWeights = hasNegativeWeights
-	g.nodes = make(map[string]*Node)
+	g.nodes = make(map[fmt.Stringer]*Node)
 
 	return g
 }
@@ -102,7 +107,7 @@ func NewGraph(oriented bool, weighed bool, hasNegativeWeights bool) *Graph {
 func ReadGraph(in string, reversed bool) *Graph {
 	var g *Graph = new(Graph)
 
-	g.nodes = make(map[string]*Node)
+	g.nodes = make(map[fmt.Stringer]*Node)
 
 	lines := strings.Split(in, "\n")
 	attributes := strings.Split(lines[0], " ")
@@ -124,19 +129,19 @@ func ReadGraph(in string, reversed bool) *Graph {
 			if g.Weighed {
 				weight, _ := strconv.Atoi(linkMatch[3])
 				if reversed {
-					g.AddLink(linkMatch[2], linkMatch[1], weight)
+					g.AddLink(stringer(linkMatch[2]), stringer(linkMatch[1]), weight)
 				} else {
-					g.AddLink(linkMatch[1], linkMatch[2], weight)
+					g.AddLink(stringer(linkMatch[1]), stringer(linkMatch[2]), weight)
 				}
 			} else {
 				if reversed {
-					g.AddLink(linkMatch[2], linkMatch[1], 1)
+					g.AddLink(stringer(linkMatch[2]), stringer(linkMatch[1]), 1)
 				} else {
-					g.AddLink(linkMatch[1], linkMatch[2], 1)
+					g.AddLink(stringer(linkMatch[1]), stringer(linkMatch[2]), 1)
 				}
 			}
 		} else { //this line describes a node
-			g.AddNode(line)
+			g.AddNode(stringer(line))
 		}
 	}
 
@@ -156,16 +161,16 @@ func (g *Graph) String() string {
 	result += " " + strconv.FormatBool(g.HasNegativeWeights) + "\n"
 
 	for node := range g.nodes {
-		result += node + "\n"
+		result += node.String() + "\n"
 	}
 
 	for node, adjacents := range g.nodes {
 		adjacentList := adjacents.AdjacentNodes()
 		for _, adjNode := range adjacentList {
 			if g.Weighed {
-				result += node + " -- " + adjNode + " " + strconv.Itoa(adjacents.Adjacent[adjNode]) + "\n"
+				result += node.String() + " -- " + adjNode.String() + " " + strconv.Itoa(adjacents.Adjacent[adjNode]) + "\n"
 			} else {
-				result += node + " -- " + adjNode + "\n"
+				result += node.String() + " -- " + adjNode.String() + "\n"
 			}
 		}
 	}
@@ -176,7 +181,7 @@ func (g *Graph) String() string {
 // Tries to add a node to the graph and returns true
 // if successful, otherwise returns false if the
 // node already exists.
-func (g *Graph) AddNode(node string) bool {
+func (g *Graph) AddNode(node fmt.Stringer) bool {
 	if _, exists := g.nodes[node]; exists { //check if the node is already in the graph
 		return false
 	} else {
@@ -191,7 +196,7 @@ func (g *Graph) AddNode(node string) bool {
 // 
 // Note: If the graph isn't oriented adding a link from A to B
 // effectively adds a link from B to A.
-func (g *Graph) AddLink(startNode string, endNode string, weight int) bool {
+func (g *Graph) AddLink(startNode fmt.Stringer, endNode fmt.Stringer, weight int) bool {
 	g.AddNode(startNode)
 	g.AddNode(endNode)
 	if _, exists := g.nodes[startNode].Adjacent[endNode]; exists { //check if the link is already in the graph
@@ -209,7 +214,7 @@ func (g *Graph) AddLink(startNode string, endNode string, weight int) bool {
 // successful removes all links between it and
 // other nodes and returns true, otherwise if the
 // node doesn't exist, returns false.
-func (g *Graph) RemoveNode(node string) bool {
+func (g *Graph) RemoveNode(node fmt.Stringer) bool {
 	if _, exists := g.nodes[node]; exists { //check if the node is already in the graph
 		delete(g.nodes, node)
 		for _, otherNode := range g.nodes {
@@ -230,7 +235,7 @@ func (g *Graph) RemoveNode(node string) bool {
 // 
 // Note: If the graph isn't oriented removing the link from A to B
 // effectively removes the link from B to A.
-func (g *Graph) RemoveLink(startNode string, endNode string) bool {
+func (g *Graph) RemoveLink(startNode fmt.Stringer, endNode fmt.Stringer) bool {
 	if _, existsNode := g.nodes[startNode]; existsNode { //check if the start node exists
 		if _, existsLink := g.nodes[startNode].Adjacent[endNode]; existsLink { //check if the link exists
 			delete(g.nodes[startNode].Adjacent, endNode)
@@ -250,7 +255,7 @@ func (g *Graph) RemoveLink(startNode string, endNode string) bool {
 // 
 // Note: If the graph isn't oriented the outgoing links
 // will always match the incoming links.
-func (g *Graph) OutgoingLinksCount(node string) int {
+func (g *Graph) OutgoingLinksCount(node fmt.Stringer) int {
 	return len(g.nodes[node].Adjacent)
 }
 
@@ -259,7 +264,7 @@ func (g *Graph) OutgoingLinksCount(node string) int {
 // 
 // Note: If the graph isn't oriented the outgoing links
 // will always match the incoming links.
-func (g *Graph) IncomingLinksCount(node string) int {
+func (g *Graph) IncomingLinksCount(node fmt.Stringer) int {
 	result := 0
 
 	for _, otherNode := range g.nodes {
@@ -271,13 +276,12 @@ func (g *Graph) IncomingLinksCount(node string) int {
 	return result
 }
 
-// Returns a slice with the names of all the nodes
-// in the graph.
-func (g *Graph) Nodes() []string {
-	result := []string{}
+// Returns a slice with all the nodes in the graph.
+func (g *Graph) Nodes() []fmt.Stringer {
+	result := []fmt.Stringer{}
 
-	for name := range g.nodes {
-		result = append(result, name)
+	for node := range g.nodes {
+		result = append(result, node)
 	}
 
 	return result

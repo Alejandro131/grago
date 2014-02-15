@@ -1,9 +1,11 @@
 package grago
 
-// Return a slice of the names of all nodes to which a path
+import "fmt"
+
+// Return a slice of all nodes to which a path
 // exists from the node provided as a parameter.
-func (g *Graph) ReachableNodes(node string) []string {
-	result := []string{}
+func (g *Graph) ReachableNodes(node fmt.Stringer) []fmt.Stringer {
+	result := []fmt.Stringer{}
 	levels := g.BFS(node)
 
 	if len(levels) > 1 {
@@ -17,7 +19,7 @@ func (g *Graph) ReachableNodes(node string) []string {
 
 // Helper function implementing the traversing part of
 // Kosaraju's algorithm for strongly connected components.
-func (g *Graph) connectedComponentsDFS(currentNode string, marked *map[string]bool, stack *[]string) {
+func (g *Graph) connectedComponentsDFS(currentNode fmt.Stringer, marked *map[fmt.Stringer]bool, stack *[]fmt.Stringer) {
 	(*marked)[currentNode] = true
 
 	for node := range g.nodes[currentNode].Adjacent {
@@ -29,13 +31,13 @@ func (g *Graph) connectedComponentsDFS(currentNode string, marked *map[string]bo
 	*stack = append(*stack, currentNode)
 }
 
-// Return a slice of slices where are given the node names
+// Return a slice of slices where are given the nodes
 // in each separate strongly connected component.
-func (g *Graph) ConnectedComponents() [][]string {
-	result := [][]string{}
+func (g *Graph) ConnectedComponents() [][]fmt.Stringer {
+	result := [][]fmt.Stringer{}
 
-	stack := []string{}
-	marked := make(map[string]bool)
+	stack := []fmt.Stringer{}
+	marked := make(map[fmt.Stringer]bool)
 	nodeCount := len(g.Nodes())
 
 	for len(marked) != nodeCount {

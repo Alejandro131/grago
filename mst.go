@@ -1,5 +1,7 @@
 package grago
 
+import "fmt"
+
 // Interface for the priority queue for Link
 func (l *Link) Less(other interface{}) bool {
 	return l.Weight < other.(*Link).Weight
@@ -18,7 +20,7 @@ func (g *Graph) MST() []Link {
 		}
 	}
 
-	sets := make(map[string]int)
+	sets := make(map[fmt.Stringer]int)
 	setCount := 0
 	for _, node := range g.Nodes() {
 		sets[node] = -1

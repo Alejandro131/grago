@@ -1,5 +1,7 @@
 package grago
 
+import "fmt"
+
 // Returns a slice of links representing an Eulearian
 // path. If no such path exists, returns an empty slice.
 // This algorithm works for undirected graphs for now.
@@ -7,7 +9,7 @@ package grago
 // Note: An Eulerian path is such that it traverses
 // through every edge exactly once.
 func (g Graph) EulerPath() []Link {
-	var start string
+	var start fmt.Stringer
 
 	// The graph must be connected in order for an
 	// eulerian path to exist. Even if it has many
@@ -45,8 +47,8 @@ func (g Graph) EulerPath() []Link {
 	// Create a copy of the graph as we will manipulate it.
 	graph := ReadGraph(g.String(), false)
 
-	stack := []string{start}
-	pathNodes := []string{}
+	stack := []fmt.Stringer{start}
+	pathNodes := []fmt.Stringer{}
 
 	for len(stack) != 0 {
 		node := stack[len(stack)-1]
@@ -76,7 +78,7 @@ func (g Graph) EulerPath() []Link {
 
 // Helper function for the hamilton path algorithm, traversing
 // nodes for a possible solution to the problem.
-func (g *Graph) hamiltonDFS(currentNode string, found *bool, marked *map[string]bool, path *[]Link, nodeCount int) {
+func (g *Graph) hamiltonDFS(currentNode fmt.Stringer, found *bool, marked *map[fmt.Stringer]bool, path *[]Link, nodeCount int) {
 	if len(*path) == nodeCount-1 {
 		*found = true
 		return
@@ -111,7 +113,7 @@ func (g *Graph) HamiltonPath() []Link {
 
 	pathFound := false
 	result := []Link{}
-	marked := make(map[string]bool)
+	marked := make(map[fmt.Stringer]bool)
 	nodeCount := len(g.Nodes())
 
 	for _, node := range g.Nodes() {

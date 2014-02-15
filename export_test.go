@@ -7,19 +7,19 @@ import (
 
 func createGraphex() *Graph {
 	graph := NewGraph(false, true, false)
-	graph.AddNode("alpha")
-	graph.AddLink("2", "3", 2)
-	graph.AddLink("2", "4", 5)
-	graph.AddLink("3", "5", 8)
-	graph.AddLink("5", "4", 10)
+	graph.AddNode(stringer("alpha"))
+	graph.AddLink(stringer("2"), stringer("3"), 2)
+	graph.AddLink(stringer("2"), stringer("4"), 5)
+	graph.AddLink(stringer("3"), stringer("5"), 8)
+	graph.AddLink(stringer("5"), stringer("4"), 10)
 	return graph
 }
 
 func ExampleGraph_Export() {
 	graph := createGraphex()
 
-	fmt.Println(graph.Export([]Link{}, false, [][]string{}))
-	fmt.Println(graph.Export(graph.DFS("2"), true, [][]string{}))
+	fmt.Println(graph.Export([]Link{}, false, [][]fmt.Stringer{}))
+	fmt.Println(graph.Export(graph.DFS(stringer("2")), true, [][]fmt.Stringer{}))
 
 	// Output:
 	// graph {"alpha" "2" "3" "4" "5" "2"--"3" [label="2"]; "2"--"4" [label="5"]; "3"--"5" [label="8"]; "4"--"5" [label="10"]; }
@@ -31,7 +31,7 @@ func TestExport(t *testing.T) {
 
 	graph := createGraphex()
 
-	if exported != graph.Export([]Link{}, false, [][]string{}) {
+	if exported != graph.Export([]Link{}, false, [][]fmt.Stringer{}) {
 		t.Fail()
 	}
 }
@@ -51,7 +51,7 @@ func TestExportHighlightsOrdered(t *testing.T) {
 
 	graph := createGraphex()
 
-	if exported != graph.Export(graph.DFS("2"), true, [][]string{}) {
+	if exported != graph.Export(graph.DFS(stringer("2")), true, [][]fmt.Stringer{}) {
 		t.Fail()
 	}
 }
@@ -61,7 +61,7 @@ func TestExportHighlightsUnordered(t *testing.T) {
 
 	graph := createGraphex()
 
-	if exported != graph.Export(graph.MST(), false, [][]string{}) {
+	if exported != graph.Export(graph.MST(), false, [][]fmt.Stringer{}) {
 		t.Fail()
 	}
 }
@@ -71,7 +71,7 @@ func TestExportHighlightsOrderedConnectedComponents(t *testing.T) {
 
 	graph := createGraphex()
 
-	if exported != graph.Export(graph.DFS("2"), true, graph.ConnectedComponents()) {
+	if exported != graph.Export(graph.DFS(stringer("2")), true, graph.ConnectedComponents()) {
 		t.Fail()
 	}
 }

@@ -1,22 +1,24 @@
 package grago
 
+import "fmt"
+
 // Traverses the graph in a manner of breadth first search
 // and returns a slice of slices of node names, representing
 // the layers of nodes during the search, with the first layer
 // with index 0 containing the initial node.
-func (g *Graph) BFS(start string) [][]string {
-	result := [][]string{}
+func (g *Graph) BFS(start fmt.Stringer) [][]fmt.Stringer {
+	result := [][]fmt.Stringer{}
 
-	marked := make(map[string]bool)
+	marked := make(map[fmt.Stringer]bool)
 	for _, node := range g.Nodes() {
 		marked[node] = false
 	}
 	marked[start] = true
 
-	currentLevel := []string{start}
-	result = append(result, []string{start})
+	currentLevel := []fmt.Stringer{start}
+	result = append(result, []fmt.Stringer{start})
 	for len(currentLevel) != 0 {
-		nextLevel := []string{}
+		nextLevel := []fmt.Stringer{}
 		for _, node := range currentLevel {
 			for adjacentNode := range g.nodes[node].Adjacent {
 				if !marked[adjacentNode] {
@@ -37,7 +39,7 @@ func (g *Graph) BFS(start string) [][]string {
 }
 
 // Helper function for recursive calling of dfs
-func (g *Graph) dfs(start string, marked *map[string]bool, links *[]Link) {
+func (g *Graph) dfs(start fmt.Stringer, marked *map[fmt.Stringer]bool, links *[]Link) {
 	for node := range g.nodes[start].Adjacent {
 		if !(*marked)[node] {
 			*links = append(*links, *NewLink(start, node, g.Weighed, g.nodes[start].Adjacent[node]))
@@ -50,10 +52,10 @@ func (g *Graph) dfs(start string, marked *map[string]bool, links *[]Link) {
 // Traverses the graph in a manner of depth first search
 // and returns a slice of links through which it goes
 // during the search.
-func (g *Graph) DFS(start string) []Link {
+func (g *Graph) DFS(start fmt.Stringer) []Link {
 	result := []Link{}
 
-	marked := make(map[string]bool)
+	marked := make(map[fmt.Stringer]bool)
 	for _, node := range g.Nodes() {
 		marked[node] = false
 	}
